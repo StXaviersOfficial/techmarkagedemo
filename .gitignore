@@ -70,3 +70,6 @@ Caddyfile
 
 # local review store (demo database)
 /.data/
+
+# uploaded files (user screenshots, etc.)
+/upload/
