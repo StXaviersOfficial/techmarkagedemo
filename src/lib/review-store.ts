@@ -20,7 +20,7 @@ const seedReviews: Review[] = [
     route: "Bengaluru → Mumbai",
     rating: 5,
     quote:
-      "The Volvo multi-axle was spotless and the berth was wide enough to actually sleep in. The driver pulled into Borivali 8 minutes early. I've stopped looking at other operators.",
+      "This is a placeholder review. Real reviews will be written by users on the actual website once it goes live.",
     date: "March 2026",
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 14,
   },
@@ -30,7 +30,7 @@ const seedReviews: Review[] = [
     route: "Pune → Goa",
     rating: 5,
     quote:
-      "Booked at 11pm, boarded at 9pm the next day. The live tracking link was a relief — my parents knew exactly where I was the whole 12 hours. Worth every rupee.",
+      "This is a placeholder review. Real reviews will be written by users on the actual website once it goes live.",
     date: "February 2026",
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 21,
   },
@@ -40,7 +40,7 @@ const seedReviews: Review[] = [
     route: "Hyderabad → Pune",
     rating: 5,
     quote:
-      "I travel this route every two weeks for work. TechMarkage is the only operator where the AC actually works, the blankets are clean, and the staff don't blast their own music at 2am.",
+      "This is a placeholder review. Real reviews will be written by users on the actual website once it goes live.",
     date: "January 2026",
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 30,
   },
@@ -50,7 +50,7 @@ const seedReviews: Review[] = [
     route: "Chennai → Bengaluru",
     rating: 5,
     quote:
-      "Five departures a day on this route means I never have to plan ahead. The AC seater is comfortable for a 5-hour hop and the price hasn't moved in two years.",
+      "This is a placeholder review. Real reviews will be written by users on the actual website once it goes live.",
     date: "March 2026",
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 10,
   },
@@ -60,7 +60,7 @@ const seedReviews: Review[] = [
     route: "Delhi → Jaipur",
     rating: 5,
     quote:
-      "Took the 6:30am semi-sleeper for a day trip. Reached Jaipur before lunch, caught the return at 11pm. Clean bus, polite driver, no nonsense. This is how intercity should be.",
+      "This is a placeholder review. Real reviews will be written by users on the actual website once it goes live.",
     date: "April 2026",
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 5,
   },
@@ -70,7 +70,7 @@ const seedReviews: Review[] = [
     route: "Ahmedabad → Surat",
     rating: 5,
     quote:
-      "₹399 for a 4-hour ride with USB charging and air suspension. The competition charges the same for a rattling non-AC bus. TechMarkage is the obvious choice on this corridor.",
+      "This is a placeholder review. Real reviews will be written by users on the actual website once it goes live.",
     date: "February 2026",
     createdAt: Date.now() - 1000 * 60 * 60 * 24 * 18,
   },

@@ -193,7 +193,7 @@ export function Hero() {
             ))}
           </div>
           <p className="mt-2 text-xs leading-relaxed text-primary-foreground/80">
-            “Spotless coach, berth wide enough to sleep in, arrived 8 minutes early.”
+            “This is a placeholder review. Real reviews will be written by users on the actual website.”
           </p>
           <div className="mt-3 flex items-center gap-1.5">
             <span className="relative flex h-1.5 w-1.5">
