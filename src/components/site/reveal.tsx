@@ -10,6 +10,7 @@ type RevealProps = {
   delay?: number;
   y?: number;
   once?: boolean;
+  id?: string;
 };
 
 const baseVariants: Variants = {
@@ -33,6 +34,7 @@ export function Reveal({
   delay = 0,
   y = 24,
   once = true,
+  id,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once, margin: "-80px" });
@@ -40,6 +42,7 @@ export function Reveal({
   return (
     <motion.div
       ref={ref}
+      id={id}
       custom={{ y }}
       variants={baseVariants}
       initial="hidden"
