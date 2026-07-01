@@ -5,7 +5,7 @@ import { HowItWorks } from "@/components/site/how-it-works";
 import { Fleet } from "@/components/site/fleet";
 import { BookingTracker } from "@/components/site/booking-tracker";
 import { Stats } from "@/components/site/stats";
-import { Testimonials } from "@/components/site/testimonials";
+import { Reviews } from "@/components/site/reviews";
 import { FaqSection } from "@/components/site/faq-section";
 import { DownloadNewsletter } from "@/components/site/download-newsletter";
 import { SiteShell } from "@/components/site/site-shell";
@@ -20,7 +20,7 @@ export default function Home() {
       <Fleet />
       <BookingTracker />
       <Stats />
-      <Testimonials />
+      <Reviews />
       <FaqSection />
       <DownloadNewsletter />
     </SiteShell>

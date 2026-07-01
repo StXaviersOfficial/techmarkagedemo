@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight, Bus, Star, MapPin, Clock, ShieldCheck, ChevronDown } from "lucide-react";
+import { ArrowRight, Bus, Star, MapPin, Clock, ShieldCheck, ChevronDown, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
@@ -161,6 +161,50 @@ export function Hero() {
             </div>
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* Floating live-review card — desktop only */}
+      <motion.div
+        initial={{ opacity: 0, x: 40, y: 20 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 0.8, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute right-8 top-1/2 hidden -translate-y-1/2 xl:block"
+      >
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-72 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/10 p-5 backdrop-blur-md"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-cyan-400 to-teal-500 font-display text-xs font-bold text-white">
+                AI
+              </div>
+              <div>
+                <div className="text-xs font-bold text-primary-foreground">Ananya Iyer</div>
+                <div className="text-[10px] text-primary-foreground/60">Bengaluru → Mumbai</div>
+              </div>
+            </div>
+            <Quote className="h-5 w-5 text-accent/50" />
+          </div>
+          <div className="mt-2.5 flex gap-0.5">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star key={i} className="h-3 w-3 fill-accent text-accent" />
+            ))}
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-primary-foreground/80">
+            “Spotless coach, berth wide enough to sleep in, arrived 8 minutes early.”
+          </p>
+          <div className="mt-3 flex items-center gap-1.5">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            <span className="text-[10px] font-medium uppercase tracking-wider text-accent">
+              Live review
+            </span>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Animated coach silhouette */}

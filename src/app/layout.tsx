@@ -19,9 +19,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Techmarkage Express | Premium Intercity Bus Travel — Demo",
+  title: "TechMarkage Express | Premium Intercity Bus Travel — Demo",
   description:
-    "Techmarkage Express is a premium intercity coach service concept. This is a portfolio demo built by Amrit Raj featuring sleeper, semi-sleeper, AC seater, and Volvo multi-axle buses with live tracking and on-time guarantee.",
+    "TechMarkage Express is a premium intercity coach service concept. This is a portfolio demo built by Amrit Raj featuring sleeper, semi-sleeper, AC seater, and Volvo multi-axle buses with live tracking and on-time guarantee.",
   keywords: [
     "bus booking",
     "intercity bus",
@@ -30,23 +30,23 @@ export const metadata: Metadata = {
     "AC bus",
     "bus tickets online",
     "live bus tracking",
-    "Techmarkage Express",
+    "TechMarkage Express",
     "demo",
   ],
   authors: [{ name: "Amrit Raj" }],
   metadataBase: new URL("https://techmarkage.express"),
   openGraph: {
-    title: "Techmarkage Express | Premium Intercity Bus Travel — Demo",
+    title: "TechMarkage Express | Premium Intercity Bus Travel — Demo",
     description:
       "A portfolio demo by Amrit Raj. Premium intercity coach service concept with live tracking, on-time guarantee, and animated UI.",
     url: "https://techmarkage.express",
-    siteName: "Techmarkage Express",
+    siteName: "TechMarkage Express",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Techmarkage Express | Premium Intercity Bus Travel — Demo",
+    title: "TechMarkage Express | Premium Intercity Bus Travel — Demo",
     description:
       "A portfolio demo by Amrit Raj. Premium intercity coach service concept.",
   },

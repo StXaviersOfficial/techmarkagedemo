@@ -70,7 +70,7 @@ export function Fleet() {
               <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[28rem]">
                 <Image
                   src={bus.image}
-                  alt={`${bus.name} coach — Techmarkage Express`}
+                  alt={`${bus.name} coach — TechMarkage Express`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"

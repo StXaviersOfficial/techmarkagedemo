@@ -51,7 +51,7 @@ export function DownloadNewsletter() {
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
               <Smartphone className="h-3 w-3" />
-              Techmarkage app
+              TechMarkage app
             </span>
             <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl">
               The whole terminal,

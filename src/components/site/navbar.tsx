@@ -12,7 +12,7 @@ import { showDemoNotice } from "@/lib/demo";
 const navLinks = [
   { href: "/#routes", label: "Routes" },
   { href: "/#fleet", label: "Fleet" },
-  { href: "/#why-us", label: "Why Techmarkage" },
+  { href: "/#why-us", label: "Why TechMarkage" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -57,7 +57,7 @@ export function Navbar() {
           <Link
             href="/"
             className="flex items-center gap-2.5 group"
-            aria-label="Techmarkage Express home"
+            aria-label="TechMarkage Express home"
           >
             <motion.span
               whileHover={{ rotate: -8, scale: 1.08 }}
@@ -68,7 +68,7 @@ export function Navbar() {
             </motion.span>
             <span className="flex flex-col leading-none">
               <span className="font-display text-lg font-extrabold tracking-tight text-primary">
-                Techmarkage
+                TechMarkage
               </span>
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
                 Express
@@ -167,7 +167,7 @@ export function Navbar() {
                     <Bus className="h-5 w-5" />
                   </span>
                   <span className="font-display text-lg font-extrabold text-primary">
-                    Techmarkage
+                    TechMarkage
                   </span>
                 </span>
                 <button
@@ -216,7 +216,7 @@ export function Navbar() {
                 </div>
               </div>
               <div className="absolute bottom-0 inset-x-0 border-t border-border bg-secondary/60 px-5 py-4 text-xs text-muted-foreground">
-                <p className="font-semibold text-foreground">Techmarkage Express — Demo</p>
+                <p className="font-semibold text-foreground">TechMarkage Express — Demo</p>
                 <p className="mt-1">Built by Amrit Raj · 1800 425 8690</p>
               </div>
             </motion.div>

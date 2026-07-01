@@ -51,7 +51,7 @@ export default function AboutPage() {
                 <span className="text-gradient-cyan">with dignity.</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary-foreground/80 text-pretty">
-                Techmarkage Express is a new intercity coach service built around a simple
+                TechMarkage Express is a new intercity coach service built around a simple
                 idea: bus travel in India deserves better. This is a demo of what&apos;s
                 coming — the real fleet launches soon.
               </p>
@@ -80,7 +80,7 @@ export default function AboutPage() {
                     no way to know when your bus will actually show up.
                   </p>
                   <p>
-                    Techmarkage Express was founded to fix that. Not with a marketing
+                    TechMarkage Express was founded to fix that. Not with a marketing
                     rethink, but with an operational one: buy the right coaches, hire and
                     train drivers as salaried professionals, instrument every vehicle with
                     live telematics, and hold ourselves to a 20-minute on-time guarantee.
@@ -244,7 +244,7 @@ export default function AboutPage() {
                   <div className="relative aspect-square overflow-hidden">
                     <Image
                       src={person.avatar}
-                      alt={`${person.name}, ${person.role} at Techmarkage Express`}
+                      alt={`${person.name}, ${person.role} at TechMarkage Express`}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -303,7 +303,7 @@ export default function AboutPage() {
                 Travel with us.
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg text-pretty">
-                A demo built to showcase the Techmarkage Express experience. The real fleet
+                A demo built to showcase the TechMarkage Express experience. The real fleet
                 launches soon — your seat is waiting.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">

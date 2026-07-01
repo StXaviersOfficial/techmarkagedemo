@@ -67,3 +67,6 @@ Caddyfile
 
 # bun cache
 .bun/
+
+# local review store (demo database)
+/.data/

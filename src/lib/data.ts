@@ -1,10 +1,10 @@
-// Centralized content for Techmarkage Express — a demo site by Amrit Raj.
+// Centralized content for TechMarkage Express — a demo site by Amrit Raj.
 // All names, routes, and testimonials are fictional. Stats are set to 0
 // to signal this is a pre-launch demo build.
 
 export const company = {
-  name: "Techmarkage Express",
-  legalName: "Techmarkage Express (Demo)",
+  name: "TechMarkage Express",
+  legalName: "TechMarkage Express (Demo)",
   tagline: "Every mile, beautifully done.",
   shortPitch:
     "A premium intercity coach service concept connecting cities across India with sleeper, semi-sleeper, and Volvo multi-axle buses. This is a demo build — the real fleet launches soon.",
@@ -31,7 +31,7 @@ export const whyChooseUs = [
     icon: "shield",
     title: "Safety first, always",
     description:
-      "Every Techmarkage coach will be fitted with disc brakes, ABS, ESC, and speed governors. Two trained drivers per long-haul route, plus a 24×7 control room monitoring telematics in real time.",
+      "Every TechMarkage coach will be fitted with disc brakes, ABS, ESC, and speed governors. Two trained drivers per long-haul route, plus a 24×7 control room monitoring telematics in real time.",
   },
   {
     icon: "armchair",
@@ -303,7 +303,7 @@ export const testimonials: Testimonial[] = [
     route: "Hyderabad → Pune",
     rating: 5,
     quote:
-      "I travel this route every two weeks for work. Techmarkage is the only operator where the AC actually works, the blankets are clean, and the staff don't blast their own music at 2am.",
+      "I travel this route every two weeks for work. TechMarkage is the only operator where the AC actually works, the blankets are clean, and the staff don't blast their own music at 2am.",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80",
     date: "January 2026",
   },
@@ -333,7 +333,7 @@ export const testimonials: Testimonial[] = [
     route: "Ahmedabad → Surat",
     rating: 5,
     quote:
-      "₹399 for a 4-hour ride with USB charging and air suspension. The competition charges the same for a rattling non-AC bus. Techmarkage is the obvious choice on this corridor.",
+      "₹399 for a 4-hour ride with USB charging and air suspension. The competition charges the same for a rattling non-AC bus. TechMarkage is the obvious choice on this corridor.",
     avatar: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=200&q=80",
     date: "February 2026",
   },
@@ -353,7 +353,7 @@ export const testimonials: Testimonial[] = [
     route: "Indore → Bhopal",
     rating: 5,
     quote:
-      "Frequent service means I never need to wait more than 30 minutes at the terminal. The buses leave on time, every time. Punctuality is Techmarkage's superpower.",
+      "Frequent service means I never need to wait more than 30 minutes at the terminal. The buses leave on time, every time. Punctuality is TechMarkage's superpower.",
     avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=200&q=80",
     date: "January 2026",
   },
@@ -370,7 +370,7 @@ export const leadership: TeamMember[] = [
   {
     name: "Ravindra Pai",
     role: "Founder & Managing Director",
-    bio: "Leading the vision behind Techmarkage Express — a new intercity coach service built around dignity, punctuality, and comfort. Eighteen years in surface transport logistics.",
+    bio: "Leading the vision behind TechMarkage Express — a new intercity coach service built around dignity, punctuality, and comfort. Eighteen years in surface transport logistics.",
     avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
   },
   {
@@ -404,7 +404,7 @@ export const milestones: Milestone[] = [
     year: "2026",
     title: "The idea takes shape",
     description:
-      "Techmarkage Express is founded with a simple premise: intercity bus travel in India deserves better. The founding team begins route planning and fleet acquisition.",
+      "TechMarkage Express is founded with a simple premise: intercity bus travel in India deserves better. The founding team begins route planning and fleet acquisition.",
   },
   {
     year: "Q3 2026",
@@ -434,7 +434,7 @@ export const milestones: Milestone[] = [
     year: "2028",
     title: "Full national coverage",
     description:
-      "Techmarkage Express operates coast to coast — from Kolkata to Ahmedabad, Delhi to Chennai. The fleet crosses 200 coaches with a 97% on-time record.",
+      "TechMarkage Express operates coast to coast — from Kolkata to Ahmedabad, Delhi to Chennai. The fleet crosses 200 coaches with a 97% on-time record.",
   },
 ];
 
@@ -472,7 +472,7 @@ export const faqs = [
   },
   {
     q: "Does every coach have live tracking?",
-    a: "Yes. Every coach in the Techmarkage fleet is fitted with GPS telematics. Once your booking is confirmed, you'll see a 'Track my bus' link in the app and in your confirmation email.",
+    a: "Yes. Every coach in the TechMarkage fleet is fitted with GPS telematics. Once your booking is confirmed, you'll see a 'Track my bus' link in the app and in your confirmation email.",
   },
   {
     q: "Are blankets and pillows provided on sleeper routes?",
@@ -494,5 +494,5 @@ export const contactSubjects = [
   "Feedback on a trip",
   "Partnership & fleet enquiries",
   "Press & media",
-  "Careers at Techmarkage",
+  "Careers at TechMarkage",
 ];

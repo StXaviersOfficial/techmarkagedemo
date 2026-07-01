@@ -32,7 +32,7 @@ export function WhyChooseUs() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Why Techmarkage
+            Why TechMarkage
           </span>
           <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
             The details that decide

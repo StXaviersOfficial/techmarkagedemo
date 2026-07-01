@@ -1,20 +1,21 @@
-# Techmarkage Express
+# TechMarkage Express
 
 > A premium intercity bus travel demo website — built by Amrit Raj as a portfolio
-> submission for the Techmarkage team.
+> submission for the TechMarkage team.
 
-Techmarkage Express is a fictional intercity coach operator built as a demo. The
+TechMarkage Express is a fictional intercity coach operator built as a demo. The
 site is engineered to read like a real, live travel brand — but every stat is set
-to zero, every external link shows a "this is a demo" notice, and every booking
-is a simulated success. This is a showcase of frontend craft, not a live product.
+to zero, every external link shows a "this is a demo" notice, and the reviews are
+a **live, interactive system** backed by a real API. This is a showcase of
+frontend craft, not a live product.
 
 ## What's inside
 
 - **Animated hero** with parallax highway background, animated gradient orbs,
-  driving coach silhouette, and a scroll indicator
+  driving coach silhouette, floating live-review card, and a scroll indicator
 - **Sticky navbar** that transforms on scroll, with a slide-in mobile drawer,
   a dark-mode toggle, and a "Demo" badge
-- **Six animated "Why Techmarkage" feature cards** with hover lift and glow
+- **Six animated "Why TechMarkage" feature cards** with hover lift and glow
 - **Eight popular-route cards** with staggered scroll reveal
 - **How It Works** — four-step booking flow with connected timeline
 - **Six-class fleet showcase** with tabbed selector and thumbnail grid
@@ -22,11 +23,13 @@ is a simulated success. This is a showcase of frontend craft, not a live product
   that generates a demo PNR
 - **Live tracking teaser** banner
 - **Animated count-up stats** (all zero — demo mode)
-- **Dual-direction testimonials marquee**
+- **Live review system** — visitors can submit reviews via a form; reviews
+  persist through a Next.js API route (`/api/reviews`) backed by a JSON store.
+  No stock photos — avatars are rendered as initials in colored circles.
 - **FAQ accordion** on the home page
 - **Download app + newsletter signup** split section with animated subscribe form
 - **About page** with vision, values, roadmap timeline, and leadership grid
-- **Contact page** with demo form, regional depots, and FAQ
+- **Contact page** with demo form, regional depots, live reviews, and FAQ
 - **Themed 404 page** with animated SVG bus taking a wrong turn
 - **Scroll progress bar** at the top of every page
 - **Back-to-top button** that appears on scroll
@@ -46,6 +49,22 @@ is a simulated success. This is a showcase of frontend craft, not a live product
 - **lucide-react** icons
 - **next/image** with Unsplash remote images (optimised, lazy-loaded)
 - **Sora + Inter** display/body type via `next/font`
+
+## Review system
+
+Reviews are a real interactive feature:
+
+- `src/lib/review-store.ts` — a JSON-file-backed store (seeded with sample
+  reviews on first run)
+- `src/app/api/reviews/route.ts` — `GET` lists all reviews; `POST` validates
+  and saves a new one
+- `src/components/site/reviews.tsx` — renders the review grid with
+  initial-based avatars (no stock photos), a "Write a review" form with
+  star rating, and live refresh after submission
+
+In the local dev environment, reviews persist to `.data/reviews.json`. On
+Vercel, the store is ephemeral per serverless instance but seeded with sample
+reviews on every cold start, so the section is never empty.
 
 ## Design language
 
@@ -83,3 +102,4 @@ Deployed on Vercel. The repo auto-deploys from `main`.
 Built by **Amrit Raj** as a portfolio demo. All company names, routes, fares,
 testimonials, and people mentioned are fictional and used for showcase purposes
 only.
+

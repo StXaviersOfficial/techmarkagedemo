@@ -20,6 +20,7 @@ import { Reveal, Stagger, staggerItem } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { BackToTop } from "@/components/site/back-to-top";
+import { Reviews } from "@/components/site/reviews";
 import { company, contactSubjects, faqs } from "@/lib/data";
 import { showDemoNotice } from "@/lib/demo";
 import { cn } from "@/lib/utils";
@@ -343,6 +344,9 @@ export default function ContactPage() {
             </div>
           </div>
         </section>
+
+        {/* Reviews — visitors can post their own */}
+        <Reviews />
 
         {/* FAQ */}
         <section className="py-24 bg-secondary/40 sm:py-32">

@@ -8,7 +8,7 @@ import { showDemoNotice } from "@/lib/demo";
 const quickLinks = [
   { href: "/#routes", label: "Popular routes", demo: false },
   { href: "/#fleet", label: "Our fleet", demo: false },
-  { href: "/#why-us", label: "Why Techmarkage", demo: false },
+  { href: "/#why-us", label: "Why TechMarkage", demo: false },
   { href: "/#track", label: "Live tracking", demo: true },
   { href: "/about", label: "About us", demo: false },
   { href: "/contact", label: "Contact", demo: false },
@@ -42,7 +42,7 @@ export function Footer() {
                 <Bus className="h-5 w-5" strokeWidth={2.4} />
               </span>
               <span className="flex flex-col leading-none">
-                <span className="font-display text-xl font-extrabold">Techmarkage</span>
+                <span className="font-display text-xl font-extrabold">TechMarkage</span>
                 <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
                   Express
                 </span>
@@ -156,7 +156,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-primary-foreground/15 pt-8 text-xs text-primary-foreground/60 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span>A demo website built for Techmarkage by {company.author}.</span>
+            <span>A demo website built for TechMarkage by {company.author}.</span>
           </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <button onClick={() => showDemoNotice("Privacy policy")} className="hover:text-primary-foreground transition-colors">
