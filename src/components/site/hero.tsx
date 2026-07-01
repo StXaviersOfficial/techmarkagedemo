@@ -3,9 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ArrowRight, Bus, Star, MapPin, Clock, ShieldCheck, ChevronDown, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+// Lazy-load the 3D scene so it doesn't block initial paint or SSR.
+const Hero3DBus = lazy(() =>
+  import("@/components/site/hero-3d-bus").then((m) => ({ default: m.Hero3DBus }))
+);
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -18,6 +23,19 @@ export function Hero() {
   const yContent = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+
+  // Only mount the 3D scene on capable devices (desktop, motion allowed).
+  const [show3d, setShow3d] = useState(false);
+  useEffect(() => {
+    const mqMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mqWidth = window.matchMedia("(min-width: 768px)");
+    const ok = !mqMotion.matches && mqWidth.matches;
+    if (ok) {
+      // Defer to next tick so it never blocks first paint.
+      const id = window.setTimeout(() => setShow3d(true), 300);
+      return () => window.clearTimeout(id);
+    }
+  }, []);
 
   return (
     <section
@@ -41,6 +59,13 @@ export function Hero() {
       {/* Animated grid overlay */}
       <div className="absolute inset-0 -z-10 bg-grid-dark opacity-50" />
 
+      {/* 3D animated bus scene — desktop only, lazy-loaded */}
+      {show3d && (
+        <Suspense fallback={null}>
+          <Hero3DBus />
+        </Suspense>
+      )}
+
       {/* Animated gradient orbs */}
       <motion.div
         animate={{ x: [0, 60, 0], y: [0, -40, 0], scale: [1, 1.1, 1] }}
@@ -56,7 +81,7 @@ export function Hero() {
       {/* Content */}
       <motion.div
         style={{ y: yContent, opacity }}
-        className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 sm:px-6 lg:px-8 pt-24 pb-16"
+        className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 sm:px-6 lg:px-8 pt-24 pb-16"
       >
         <div className="max-w-3xl">
           <motion.div
