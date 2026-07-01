@@ -1,2 +1,69 @@
-skills/
-node_modules/
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+bun-debug.log*
+
+# local env files
+.env
+.env*.local
+.env.development
+.env.production
+.env.production.local
+.secure/
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+
+# logs
+dev.log
+server.log
+*.log
+
+# local screenshots / scratch
+/screenshots/
+/download/
+
+# editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# zscripts internal
+/.zscripts/
+
+# caddy
+Caddyfile
+
+# local db / prisma artifacts (project doesn't use a database)
+/prisma/
+/db/
+
+# skills / examples / mini-services (sandbox infra, not part of the demo site)
+/skills/
+/examples/
+/mini-services/
+
+# bun cache
+.bun/

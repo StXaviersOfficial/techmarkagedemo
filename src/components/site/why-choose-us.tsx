@@ -1,0 +1,80 @@
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  ShieldCheck,
+  Armchair,
+  Clock,
+  Tag,
+  Snowflake,
+  Radar,
+  type LucideIcon,
+} from "lucide-react";
+import { whyChooseUs } from "@/lib/data";
+import { Reveal, Stagger, staggerItem } from "@/components/site/reveal";
+
+const iconMap: Record<string, LucideIcon> = {
+  shield: ShieldCheck,
+  armchair: Armchair,
+  clock: Clock,
+  tag: Tag,
+  snowflake: Snowflake,
+  radar: Radar,
+};
+
+export function WhyChooseUs() {
+  return (
+    <section
+      id="why-us"
+      className="relative py-24 sm:py-32 bg-background"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            Why Voyaline
+          </span>
+          <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+            The details that decide
+            <br className="hidden sm:block" /> whether you arrive rested.
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg text-pretty">
+            Every choice we make — from the seat foam we specify to the rest hours we
+            mandate for drivers — is engineered around one question: would we put our own
+            family on this bus?
+          </p>
+        </Reveal>
+
+        <Stagger className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
+          {whyChooseUs.map((item) => {
+            const Icon = iconMap[item.icon] ?? ShieldCheck;
+            return (
+              <motion.div
+                key={item.title}
+                variants={staggerItem}
+                whileHover={{ y: -6 }}
+                transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-7 shadow-sm transition-shadow hover:shadow-xl hover:shadow-primary/5"
+              >
+                <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-accent to-amber-300 transition-transform duration-300 group-hover:scale-x-100" />
+                <div className="relative">
+                  <div className="grid h-14 w-14 place-items-center rounded-xl bg-primary/5 text-primary transition-all duration-300 group-hover:bg-accent group-hover:text-accent-foreground">
+                    <Icon className="h-7 w-7" strokeWidth={1.8} />
+                  </div>
+                  <h3 className="mt-5 font-display text-xl font-bold tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
+                {/* Decorative corner glow */}
+                <div className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-accent/0 blur-2xl transition-colors duration-300 group-hover:bg-accent/10" />
+              </motion.div>
+            );
+          })}
+        </Stagger>
+      </div>
+    </section>
+  );
+}
