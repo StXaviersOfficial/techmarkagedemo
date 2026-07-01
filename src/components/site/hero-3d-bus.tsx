@@ -1,51 +1,59 @@
 "use client";
 
-import { useMemo, useRef, Suspense } from "react";
+import { useMemo, useRef, Suspense, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 /* ============================================================
-   TechMarkage Express — 3D hero scene
-   A stylized low-poly coach that drives across the screen on a
-   glowing road, with rotating wheels, emissive windows, a cyan
-   particle trail, dynamic fog, and subtle mouse-parallax camera.
-   Built entirely from primitives — no external 3D assets needed.
+   TechMarkage Express — Cinematic 3D hero
+   A full-screen 3D scene: a detailed coach on a perspective
+   highway, surrounded by drifting particles, floating geometric
+   shapes, 3D text labels, a starfield, and bloom post-processing.
+   Works on desktop AND mobile with adaptive quality.
    ============================================================ */
 
-/* ---------- The coach ---------- */
+/* ---------- Responsive quality hook ---------- */
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
+/* ---------- Detailed coach model ---------- */
 function Coach() {
   const group = useRef<THREE.Group>(null);
-  const wheelFL = useRef<THREE.Mesh>(null);
-  const wheelFR = useRef<THREE.Mesh>(null);
-  const wheelRL = useRef<THREE.Mesh>(null);
-  const wheelRR = useRef<THREE.Mesh>(null);
+  const wheelsRef = useRef<THREE.Group>(null);
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (group.current) {
-      // Drive across the screen in a loop, slight bob
-      const cycle = (t * 0.12) % 1;
-      group.current.position.x = -14 + cycle * 28;
-      group.current.position.y = 0.15 + Math.sin(t * 2.2) * 0.04;
-      // Slight lean into the motion
-      group.current.rotation.z = Math.sin(t * 2.2) * 0.015;
+      // Slow dramatic hover: gentle bob + slight rotation
+      group.current.position.y = Math.sin(t * 0.8) * 0.15;
+      group.current.rotation.y = -0.35 + Math.sin(t * 0.3) * 0.08;
+      group.current.rotation.z = Math.sin(t * 0.6) * 0.02;
     }
-    // Wheels spin
-    const spin = delta * 14;
-    [wheelFL, wheelFR, wheelRL, wheelRR].forEach((w) => {
-      if (w.current) w.current.rotation.x += spin;
-    });
+    // Wheels slowly spin
+    if (wheelsRef.current) {
+      wheelsRef.current.children.forEach((child) => {
+        (child as THREE.Mesh).rotation.x += 0.04;
+      });
+    }
   });
 
-  // Body materials — dark teal body with metallic finish, pops via emissive accents
+  // Materials
   const bodyMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
         color: "#0B2A35",
-        metalness: 0.8,
-        roughness: 0.25,
+        metalness: 0.85,
+        roughness: 0.22,
         emissive: "#042F38",
-        emissiveIntensity: 0.4,
+        emissiveIntensity: 0.3,
       }),
     []
   );
@@ -54,9 +62,9 @@ function Coach() {
       new THREE.MeshStandardMaterial({
         color: "#06B6D4",
         emissive: "#06B6D4",
-        emissiveIntensity: 1.2,
+        emissiveIntensity: 2.5,
         metalness: 0.4,
-        roughness: 0.3,
+        roughness: 0.2,
       }),
     []
   );
@@ -65,9 +73,9 @@ function Coach() {
       new THREE.MeshStandardMaterial({
         color: "#67E8F9",
         emissive: "#22D3EE",
-        emissiveIntensity: 2.2,
-        metalness: 0.2,
-        roughness: 0.1,
+        emissiveIntensity: 3.0,
+        metalness: 0.1,
+        roughness: 0.05,
         transparent: true,
         opacity: 0.95,
       }),
@@ -76,216 +84,478 @@ function Coach() {
   const tyreMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "#0A1F26",
-        metalness: 0.3,
-        roughness: 0.7,
+        color: "#050E13",
+        metalness: 0.4,
+        roughness: 0.65,
       }),
     []
   );
-  const hubMat = useMemo(
+  const rimMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
         color: "#22D3EE",
         emissive: "#06B6D4",
-        emissiveIntensity: 0.8,
-        metalness: 0.8,
-        roughness: 0.2,
+        emissiveIntensity: 1.5,
+        metalness: 0.9,
+        roughness: 0.15,
+      }),
+    []
+  );
+  const chromeMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: "#E0F7FA",
+        metalness: 1.0,
+        roughness: 0.1,
+      }),
+    []
+  );
+  const destSignMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: "#0A1F26",
+        emissive: "#22D3EE",
+        emissiveIntensity: 1.8,
       }),
     []
   );
 
   return (
-    <group ref={group} position={[-14, 0, 0]} scale={1.1}>
-      {/* Main body */}
+    <group ref={group} position={[0.5, -0.3, 0]} scale={1.3} rotation={[0, -0.35, 0]}>
+      {/* ===== Main body ===== */}
       <mesh material={bodyMat} castShadow>
-        <boxGeometry args={[5.2, 1.7, 1.9]} />
+        <boxGeometry args={[6.5, 2.1, 2.3]} />
       </mesh>
-      {/* Roof curve — a slightly smaller box on top for a coach silhouette */}
-      <mesh material={bodyMat} position={[0, 0.95, 0]}>
-        <boxGeometry args={[4.6, 0.25, 1.7]} />
+      {/* Roof — slightly smaller box on top for coach silhouette */}
+      <mesh material={bodyMat} position={[0, 1.15, 0]}>
+        <boxGeometry args={[5.8, 0.3, 2.1]} />
       </mesh>
-      {/* Front nose (driver cabin) — angled box */}
-      <mesh material={bodyMat} position={[2.85, -0.1, 0]} rotation={[0, 0, -0.12]}>
-        <boxGeometry args={[0.8, 1.5, 1.85]} />
+      {/* AC unit on roof */}
+      <mesh material={bodyMat} position={[-0.5, 1.42, 0]}>
+        <boxGeometry args={[1.8, 0.25, 1.4]} />
       </mesh>
-      {/* Windshield */}
-      <mesh material={windowMat} position={[3.15, 0.35, 0]} rotation={[0, 0, -0.32]}>
-        <boxGeometry args={[0.12, 0.9, 1.6]} />
+      <mesh material={accentMat} position={[-0.5, 1.56, 0]}>
+        <boxGeometry args={[1.6, 0.04, 1.2]} />
       </mesh>
-      {/* Side windows — row of glowing panes */}
-      {[-1.9, -0.9, 0.1, 1.1, 2.1].map((x) => (
-        <mesh key={x} material={windowMat} position={[x, 0.45, 0.96]}>
-          <boxGeometry args={[0.7, 0.55, 0.04]} />
+
+      {/* ===== Front nose (driver cabin) ===== */}
+      <mesh material={bodyMat} position={[3.55, -0.15, 0]} rotation={[0, 0, -0.15]}>
+        <boxGeometry args={[1.0, 1.85, 2.25]} />
+      </mesh>
+      {/* Windshield — large raked glass */}
+      <mesh material={windowMat} position={[3.85, 0.4, 0]} rotation={[0, 0, -0.4]}>
+        <boxGeometry args={[0.14, 1.1, 1.9]} />
+      </mesh>
+      {/* Destination sign above windshield */}
+      <mesh material={destSignMat} position={[3.95, 1.0, 0]}>
+        <boxGeometry args={[0.1, 0.35, 1.6]} />
+      </mesh>
+      {/* Front grille */}
+      <mesh material={chromeMat} position={[3.98, -0.5, 0]}>
+        <boxGeometry args={[0.08, 0.5, 1.8]} />
+      </mesh>
+
+      {/* ===== Side windows — two rows ===== */}
+      {[-2.4, -1.2, 0, 1.2, 2.3].map((x) => (
+        <mesh key={`ws-${x}`} material={windowMat} position={[x, 0.55, 1.16]}>
+          <boxGeometry args={[0.85, 0.65, 0.05]} />
         </mesh>
       ))}
-      {[-1.9, -0.9, 0.1, 1.1, 2.1].map((x) => (
-        <mesh key={`r-${x}`} material={windowMat} position={[x, 0.45, -0.96]}>
-          <boxGeometry args={[0.7, 0.55, 0.04]} />
+      {[-2.4, -1.2, 0, 1.2, 2.3].map((x) => (
+        <mesh key={`wn-${x}`} material={windowMat} position={[x, 0.55, -1.16]}>
+          <boxGeometry args={[0.85, 0.65, 0.05]} />
         </mesh>
       ))}
-      {/* Accent stripe along the side */}
-      <mesh material={accentMat} position={[0, -0.15, 0.97]}>
-        <boxGeometry args={[5.0, 0.12, 0.03]} />
+
+      {/* ===== Accent stripes ===== */}
+      <mesh material={accentMat} position={[0, -0.2, 1.17]}>
+        <boxGeometry args={[6.2, 0.14, 0.04]} />
       </mesh>
-      <mesh material={accentMat} position={[0, -0.15, -0.97]}>
-        <boxGeometry args={[5.0, 0.12, 0.03]} />
+      <mesh material={accentMat} position={[0, -0.2, -1.17]}>
+        <boxGeometry args={[6.2, 0.14, 0.04]} />
       </mesh>
-      {/* Headlights */}
-      <mesh material={accentMat} position={[3.28, -0.35, 0.65]}>
-        <boxGeometry args={[0.08, 0.22, 0.18]} />
+      {/* Lower skirt accent */}
+      <mesh material={accentMat} position={[0, -0.95, 1.17]}>
+        <boxGeometry args={[6.2, 0.06, 0.04]} />
       </mesh>
-      <mesh material={accentMat} position={[3.28, -0.35, -0.65]}>
-        <boxGeometry args={[0.08, 0.22, 0.18]} />
+      <mesh material={accentMat} position={[0, -0.95, -1.17]}>
+        <boxGeometry args={[6.2, 0.06, 0.04]} />
       </mesh>
-      {/* Headlight beams — two spotlight cones projecting forward */}
-      <spotLight
-        position={[3.4, -0.3, 0.65]}
-        target-position={[10, -0.5, 0.65]}
-        angle={0.35}
-        penumbra={0.6}
-        intensity={8}
-        distance={14}
-        color="#67E8F9"
-      />
-      <spotLight
-        position={[3.4, -0.3, -0.65]}
-        target-position={[10, -0.5, -0.65]}
-        angle={0.35}
-        penumbra={0.6}
-        intensity={8}
-        distance={14}
-        color="#67E8F9"
-      />
-      {/* Wheels */}
-      {[
-        { ref: wheelFL, pos: [2.0, -0.95, 1.0] },
-        { ref: wheelFR, pos: [2.0, -0.95, -1.0] },
-        { ref: wheelRL, pos: [-2.0, -0.95, 1.0] },
-        { ref: wheelRR, pos: [-2.0, -0.95, -1.0] },
-      ].map((w, i) => (
-        <group key={i} position={w.pos as [number, number, number]}>
-          <mesh ref={w.ref} material={tyreMat} rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.55, 0.55, 0.32, 18]} />
-          </mesh>
-          <mesh material={hubMat} rotation={[0, 0, Math.PI / 2]}>
-            <cylinderGeometry args={[0.22, 0.22, 0.34, 10]} />
-          </mesh>
-        </group>
-      ))}
-      {/* Underglow — a cyan point light beneath the bus */}
+
+      {/* Headlight glow meshes (no spotlights — too expensive for perf) */}
+      <mesh material={accentMat} position={[4.05, -0.4, 0.75]}>
+        <boxGeometry args={[0.08, 0.28, 0.22]} />
+      </mesh>
+      <mesh material={accentMat} position={[4.05, -0.4, -0.75]}>
+        <boxGeometry args={[0.08, 0.28, 0.22]} />
+      </mesh>
+
+      {/* ===== Tail lights ===== */}
+      <mesh material={accentMat} position={[-3.28, -0.3, 0.8]}>
+        <boxGeometry args={[0.06, 0.4, 0.2]} />
+      </mesh>
+      <mesh material={accentMat} position={[-3.28, -0.3, -0.8]}>
+        <boxGeometry args={[0.06, 0.4, 0.2]} />
+      </mesh>
+
+      {/* ===== Side mirrors ===== */}
+      <mesh material={bodyMat} position={[3.1, 0.3, 1.45]}>
+        <boxGeometry args={[0.1, 0.6, 0.1]} />
+      </mesh>
+      <mesh material={chromeMat} position={[3.15, 0.3, 1.55]}>
+        <boxGeometry args={[0.2, 0.5, 0.08]} />
+      </mesh>
+      <mesh material={bodyMat} position={[3.1, 0.3, -1.45]}>
+        <boxGeometry args={[0.1, 0.6, 0.1]} />
+      </mesh>
+      <mesh material={chromeMat} position={[3.15, 0.3, -1.55]}>
+        <boxGeometry args={[0.2, 0.5, 0.08]} />
+      </mesh>
+
+      {/* ===== Wheels ===== */}
+      <group ref={wheelsRef}>
+        {[
+          [2.4, -1.15, 1.2],
+          [2.4, -1.15, -1.2],
+          [-2.4, -1.15, 1.2],
+          [-2.4, -1.15, -1.2],
+        ].map((pos, i) => (
+          <group key={i} position={pos as [number, number, number]}>
+            <mesh material={tyreMat} rotation={[0, 0, Math.PI / 2]}>
+              <cylinderGeometry args={[0.68, 0.68, 0.38, 24]} />
+            </mesh>
+            <mesh material={rimMat} rotation={[0, 0, Math.PI / 2]}>
+              <cylinderGeometry args={[0.3, 0.3, 0.4, 12]} />
+            </mesh>
+            {/* Spokes */}
+            {[0, 1, 2, 3, 4].map((s) => (
+              <mesh
+                key={s}
+                material={rimMat}
+                rotation={[0, 0, (s / 5) * Math.PI * 2]}
+                position={[0, 0, 0]}
+              >
+                <boxGeometry args={[0.5, 0.06, 0.06]} />
+              </mesh>
+            ))}
+          </group>
+        ))}
+      </group>
+
+      {/* ===== Underglow ===== */}
       <pointLight
-        position={[0, -1.2, 0]}
+        position={[0, -1.5, 0]}
         color="#06B6D4"
-        intensity={6}
-        distance={6}
+        intensity={10}
+        distance={8}
+        decay={2}
+      />
+      {/* Interior glow (through windows) */}
+      <pointLight
+        position={[0, 0.3, 0]}
+        color="#67E8F9"
+        intensity={3}
+        distance={5}
         decay={2}
       />
     </group>
   );
 }
 
-/* ---------- The glowing road ---------- */
-function Road() {
+/* ---------- Perspective highway ---------- */
+function Highway() {
   const dashesRef = useRef<THREE.Group>(null);
+
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
     if (dashesRef.current) {
-      // Scroll the dashes toward the camera to imply forward motion
       dashesRef.current.children.forEach((child) => {
         const mesh = child as THREE.Mesh;
-        const base = (mesh.userData.x as number) ?? 0;
-        const offset = (t * 6) % 4;
-        mesh.position.x = ((base - offset + 20) % 20) - 10;
+        const baseZ = (mesh.userData.z as number) ?? 0;
+        const offset = (t * 8) % 8;
+        mesh.position.z = ((baseZ + offset + 40) % 80) - 40;
+        // Scale dashes based on distance for perspective
+        const dist = Math.abs(mesh.position.z);
+        mesh.scale.set(1 - dist / 100, 1, 1 - dist / 100);
       });
     }
   });
 
   const dashPositions = useMemo(() => {
     const arr: number[] = [];
-    for (let i = -10; i <= 10; i += 2) arr.push(i);
+    for (let i = -40; i <= 40; i += 8) arr.push(i);
     return arr;
   }, []);
 
   return (
-    <group position={[0, -1.1, 0]}>
-      {/* Road surface */}
+    <group position={[0, -2.8, 0]} rotation={[-0.15, 0, 0]}>
+      {/* Road surface — wide plane receding into distance */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[60, 8]} />
+        <planeGeometry args={[16, 100]} />
         <meshStandardMaterial
-          color="#0A1F26"
-          metalness={0.5}
-          roughness={0.6}
+          color="#030C12"
+          metalness={0.6}
+          roughness={0.5}
         />
       </mesh>
-      {/* Center dashed line */}
+      {/* Center dashes — scrolling toward camera */}
       <group ref={dashesRef}>
-        {dashPositions.map((x, i) => (
-          <mesh key={i} rotation={[-Math.PI / 2, 0, 0]} position={[x, 0.01, 0]}>
-            <planeGeometry args={[0.8, 0.12]} />
+        {dashPositions.map((z, i) => (
+          <mesh
+            key={i}
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, 0.02, z]}
+            userData={{ z }}
+          >
+            <planeGeometry args={[0.3, 1.5]} />
             <meshStandardMaterial
               color="#22D3EE"
               emissive="#06B6D4"
-              emissiveIntensity={1.4}
+              emissiveIntensity={2.0}
             />
           </mesh>
         ))}
       </group>
       {/* Edge glow lines */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 3.8]}>
-        <planeGeometry args={[60, 0.08]} />
-        <meshStandardMaterial color="#06B6D4" emissive="#06B6D4" emissiveIntensity={1.2} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[5, 0.03, 0]}>
+        <planeGeometry args={[0.12, 100]} />
+        <meshStandardMaterial color="#06B6D4" emissive="#06B6D4" emissiveIntensity={2.0} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, -3.8]}>
-        <planeGeometry args={[60, 0.08]} />
-        <meshStandardMaterial color="#06B6D4" emissive="#06B6D4" emissiveIntensity={1.2} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[-5, 0.03, 0]}>
+        <planeGeometry args={[0.12, 100]} />
+        <meshStandardMaterial color="#06B6D4" emissive="#06B6D4" emissiveIntensity={2.0} />
       </mesh>
+      {/* Roadside glow posts — fewer for performance */}
+      {[-30, -15, 15, 30].map((z, i) => (
+        <group key={i} position={[6, 0, z]}>
+          <mesh>
+            <cylinderGeometry args={[0.05, 0.05, 2, 6]} />
+            <meshStandardMaterial color="#0A1F26" />
+          </mesh>
+          <mesh position={[0, 1.2, 0]}>
+            <sphereGeometry args={[0.15, 8, 8]} />
+            <meshStandardMaterial
+              color="#67E8F9"
+              emissive="#22D3EE"
+              emissiveIntensity={3.0}
+            />
+          </mesh>
+        </group>
+      ))}
+      {[-30, -15, 15, 30].map((z, i) => (
+        <group key={`r-${i}`} position={[-6, 0, z]}>
+          <mesh>
+            <cylinderGeometry args={[0.05, 0.05, 2, 6]} />
+            <meshStandardMaterial color="#0A1F26" />
+          </mesh>
+          <mesh position={[0, 1.2, 0]}>
+            <sphereGeometry args={[0.15, 8, 8]} />
+            <meshStandardMaterial
+              color="#67E8F9"
+              emissive="#22D3EE"
+              emissiveIntensity={3.0}
+            />
+          </mesh>
+        </group>
+      ))}
     </group>
   );
 }
 
-/* ---------- Particle trail behind the bus ---------- */
-function ParticleTrail({ count = 220 }: { count?: number }) {
-  const points = useRef<THREE.Points>(null);
-  const positions = useMemo(() => {
-    const arr = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      arr[i * 3] = (Math.random() - 0.5) * 30;
-      arr[i * 3 + 1] = Math.random() * 4 - 1;
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 6;
-    }
-    return arr;
+/* ---------- Instanced particle field (hundreds of glowing particles) ---------- */
+function ParticleField({ count = 300 }: { count?: number }) {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const particles = useMemo(() => {
+    return Array.from({ length: count }, () => ({
+      x: (Math.random() - 0.5) * 30,
+      y: Math.random() * 12 - 3,
+      z: (Math.random() - 0.5) * 30,
+      speed: 0.3 + Math.random() * 0.8,
+      offset: Math.random() * Math.PI * 2,
+      scale: 0.3 + Math.random() * 0.6,
+    }));
   }, [count]);
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    if (points.current) {
-      points.current.rotation.z = Math.sin(t * 0.2) * 0.05;
-      const geo = points.current.geometry;
-      const pos = geo.attributes.position as THREE.BufferAttribute;
-      const arr = pos.array as Float32Array;
-      for (let i = 0; i < count; i++) {
-        // Drift particles rightward and wrap
-        arr[i * 3] += 0.06;
-        if (arr[i * 3] > 15) arr[i * 3] = -15;
-        arr[i * 3 + 1] += Math.sin(t * 1.5 + i) * 0.002;
-      }
-      pos.needsUpdate = true;
-    }
+    if (!meshRef.current) return;
+    particles.forEach((p, i) => {
+      // Drift upward, wrap around
+      let y = p.y + (t * p.speed) % 15;
+      y = ((y + 3) % 15) - 3;
+      const x = p.x + Math.sin(t * 0.5 + p.offset) * 0.5;
+      const z = p.z + Math.cos(t * 0.3 + p.offset) * 0.5;
+      dummy.position.set(x, y, z);
+      const s = p.scale * (0.8 + Math.sin(t * 2 + p.offset) * 0.2);
+      dummy.scale.set(s, s, s);
+      dummy.rotation.y = t * 0.5 + p.offset;
+      dummy.updateMatrix();
+      meshRef.current!.setMatrixAt(i, dummy.matrix);
+    });
+    meshRef.current.instanceMatrix.needsUpdate = true;
   });
 
   return (
-    <points ref={points}>
+    <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
+      <octahedronGeometry args={[0.12, 0]} />
+      <meshStandardMaterial
+        color="#67E8F9"
+        emissive="#22D3EE"
+        emissiveIntensity={2.5}
+        transparent
+        opacity={0.8}
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+      />
+    </instancedMesh>
+  );
+}
+
+/* ---------- Floating geometric shapes ---------- */
+function FloatingGeometry() {
+  const group = useRef<THREE.Group>(null);
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (group.current) {
+      group.current.rotation.y = t * 0.05;
+      group.current.children.forEach((child, i) => {
+        child.rotation.x = t * (0.2 + i * 0.05);
+        child.rotation.z = t * (0.15 + i * 0.03);
+        child.position.y = child.userData.baseY + Math.sin(t * 0.5 + i) * 0.5;
+      });
+    }
+  });
+
+  const shapes = useMemo(
+    () => [
+      { pos: [-7, 2, -3] as [number, number, number], type: "torus", scale: 0.8 },
+      { pos: [7, 3, -2] as [number, number, number], type: "octa", scale: 0.6 },
+      { pos: [-6, -1, 2] as [number, number, number], type: "tetra", scale: 0.5 },
+      { pos: [8, 0, 3] as [number, number, number], type: "torus", scale: 0.4 },
+      { pos: [-8, 4, -1] as [number, number, number], type: "octa", scale: 0.45 },
+      { pos: [6, -2, -4] as [number, number, number], type: "tetra", scale: 0.7 },
+    ],
+    []
+  );
+
+  const wireMat = useMemo(
+    () =>
+      new THREE.MeshStandardMaterial({
+        color: "#22D3EE",
+        emissive: "#06B6D4",
+        emissiveIntensity: 1.5,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.6,
+      }),
+    []
+  );
+
+  return (
+    <group ref={group}>
+      {shapes.map((s, i) => (
+        <mesh
+          key={i}
+          material={wireMat}
+          position={s.pos}
+          scale={s.scale}
+          userData={{ baseY: s.pos[1] }}
+        >
+          {s.type === "torus" && <torusGeometry args={[1, 0.3, 8, 16]} />}
+          {s.type === "octa" && <octahedronGeometry args={[1, 0]} />}
+          {s.type === "tetra" && <tetrahedronGeometry args={[1, 0]} />}
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+/* ---------- Floating glowing rings (replaces 3D text for perf) ---------- */
+function FloatingRings({ isMobile }: { isMobile: boolean }) {
+  const group = useRef<THREE.Group>(null);
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    if (group.current) {
+      group.current.rotation.y = Math.sin(t * 0.1) * 0.1;
+      group.current.children.forEach((child, i) => {
+        child.rotation.x = t * (0.2 + i * 0.05);
+        child.rotation.z = t * (0.15 + i * 0.03);
+        child.position.y = child.userData.baseY + Math.sin(t * 0.4 + i * 1.5) * 0.3;
+      });
+    }
+  });
+
+  const rings = useMemo(
+    () =>
+      isMobile
+        ? [
+            { pos: [-3, 2, -2] as [number, number, number], scale: 0.6 },
+            { pos: [3, -1, -1] as [number, number, number], scale: 0.5 },
+          ]
+        : [
+            { pos: [-7, 2.5, -3] as [number, number, number], scale: 0.8 },
+            { pos: [6, 3.5, -4] as [number, number, number], scale: 0.6 },
+            { pos: [-6, -1, -1] as [number, number, number], scale: 0.5 },
+            { pos: [7, 0, -3] as [number, number, number], scale: 0.7 },
+          ],
+    [isMobile]
+  );
+
+  const ringMat = useMemo(
+    () =>
+      new THREE.MeshBasicMaterial({
+        color: "#67E8F9",
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      }),
+    []
+  );
+
+  return (
+    <group ref={group}>
+      {rings.map((r, i) => (
+        <mesh
+          key={i}
+          material={ringMat}
+          position={r.pos}
+          scale={r.scale}
+          userData={{ baseY: r.pos[1] }}
+        >
+          <torusGeometry args={[1, 0.04, 6, 24]} />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+/* ---------- Distant starfield ---------- */
+function Starfield({ count = 400 }: { count?: number }) {
+  const positions = useMemo(() => {
+    const arr = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const r = 30 + Math.random() * 20;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos((Math.random() - 0.5) * 2);
+      arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) + 5;
+      arr[i * 3 + 2] = r * Math.cos(phi);
+    }
+    return arr;
+  }, [count]);
+
+  return (
+    <points>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        color="#67E8F9"
-        size={0.08}
+        color="#A5F3FC"
+        size={0.15}
         transparent
-        opacity={0.7}
+        opacity={0.6}
         sizeAttenuation
         blending={THREE.AdditiveBlending}
         depthWrite={false}
@@ -294,47 +564,67 @@ function ParticleTrail({ count = 220 }: { count?: number }) {
   );
 }
 
-/* ---------- Mouse-parallax camera rig ---------- */
-function CameraRig() {
+/* ---------- Cinematic camera rig ---------- */
+function CameraRig({ isMobile }: { isMobile: boolean }) {
   const { camera, pointer } = useThree();
-  useFrame(() => {
-    camera.position.x += (pointer.x * 2.5 - camera.position.x) * 0.04;
-    camera.position.y += (1.6 + pointer.y * 1.2 - camera.position.y) * 0.04;
-    camera.lookAt(0, 0, 0);
+  useFrame((state) => {
+    const t = state.clock.getElapsedTime();
+    // Slow cinematic auto-orbit
+    const orbitX = Math.sin(t * 0.08) * 1.5;
+    const orbitY = 1.8 + Math.sin(t * 0.12) * 0.5;
+    // Mouse parallax on desktop
+    const mouseX = isMobile ? 0 : pointer.x * 2.0;
+    const mouseY = isMobile ? 0 : pointer.y * 1.0;
+    camera.position.x += (orbitX + mouseX - camera.position.x) * 0.03;
+    camera.position.y += (orbitY + mouseY - camera.position.y) * 0.03;
+    camera.position.z = 9 + Math.sin(t * 0.06) * 1.0;
+    camera.lookAt(0.3, 0, 0);
   });
   return null;
 }
 
 /* ---------- The full scene ---------- */
-function Scene() {
+function Scene({ isMobile }: { isMobile: boolean }) {
+  const particleCount = isMobile ? 60 : 150;
+  const starCount = isMobile ? 100 : 200;
+
   return (
     <>
-      <CameraRig />
-      <fog attach="fog" args={["#042F38", 12, 30]} />
+      <CameraRig isMobile={isMobile} />
+      <fog attach="fog" args={["#042F38", 14, 40]} />
+      {/* Lighting — kept lean for performance (each light adds shader cost) */}
       <ambientLight intensity={0.5} />
-      <directionalLight position={[5, 8, 5]} intensity={1.0} color="#ECFEFF" />
-      <directionalLight position={[-5, 3, -3]} intensity={0.6} color="#06B6D4" />
-      <pointLight position={[-8, 4, 2]} intensity={5} color="#06B6D4" distance={22} />
-      <pointLight position={[8, 3, -3]} intensity={4} color="#22D3EE" distance={20} />
+      <directionalLight position={[6, 10, 6]} intensity={1.2} color="#ECFEFF" />
+      <pointLight position={[-10, 5, 3]} intensity={6} color="#06B6D4" distance={30} />
+      <pointLight position={[10, 4, -3]} intensity={5} color="#22D3EE" distance={28} />
+
       <Coach />
-      <Road />
-      <ParticleTrail />
+      <Highway />
+      <ParticleField count={particleCount} />
+      <FloatingGeometry />
+      <FloatingRings isMobile={isMobile} />
+      <Starfield count={starCount} />
     </>
   );
 }
 
-/* ---------- Public wrapper with lazy Canvas ---------- */
+/* ---------- Public wrapper ---------- */
 export function Hero3DBus() {
+  const isMobile = useIsMobile();
   return (
     <div className="absolute inset-0 z-0 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 1.6, 9], fov: 50 }}
-        dpr={[1, 1.8]}
-        gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        camera={{ position: [0, 1.8, 9], fov: 50 }}
+        dpr={isMobile ? [0.5, 1.0] : [0.75, 1.5]}
+        gl={{
+          antialias: !isMobile,
+          alpha: true,
+          powerPreference: "high-performance",
+        }}
         style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
-          <Scene />
+          <Scene isMobile={isMobile} />
         </Suspense>
       </Canvas>
     </div>

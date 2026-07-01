@@ -24,17 +24,15 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
-  // Only mount the 3D scene on capable devices (desktop, motion allowed).
+  // Always show 3D (desktop + mobile). The scene adapts quality internally.
+  // Still respect reduced-motion, but only skip on that, not on screen size.
   const [show3d, setShow3d] = useState(false);
   useEffect(() => {
     const mqMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const mqWidth = window.matchMedia("(min-width: 768px)");
-    const ok = !mqMotion.matches && mqWidth.matches;
-    if (ok) {
-      // Defer to next tick so it never blocks first paint.
-      const id = window.setTimeout(() => setShow3d(true), 300);
-      return () => window.clearTimeout(id);
-    }
+    if (mqMotion.matches) return; // skip 3D only if user explicitly opts out
+    // Defer to next tick so it never blocks first paint.
+    const id = window.setTimeout(() => setShow3d(true), 200);
+    return () => window.clearTimeout(id);
   }, []);
 
   return (
