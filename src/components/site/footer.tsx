@@ -3,30 +3,31 @@
 import Link from "next/link";
 import { Bus, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin, Youtube } from "lucide-react";
 import { company, popularRoutes } from "@/lib/data";
+import { showDemoNotice } from "@/lib/demo";
 
 const quickLinks = [
-  { href: "/#routes", label: "Popular routes" },
-  { href: "/#fleet", label: "Our fleet" },
-  { href: "/#why-us", label: "Why Voyaline" },
-  { href: "/#track", label: "Live tracking" },
-  { href: "/about", label: "About us" },
-  { href: "/contact", label: "Contact" },
+  { href: "/#routes", label: "Popular routes", demo: false },
+  { href: "/#fleet", label: "Our fleet", demo: false },
+  { href: "/#why-us", label: "Why Techmarkage", demo: false },
+  { href: "/#track", label: "Live tracking", demo: true },
+  { href: "/about", label: "About us", demo: false },
+  { href: "/contact", label: "Contact", demo: false },
 ];
 
 const supportLinks = [
-  { href: "/contact", label: "Help centre" },
-  { href: "/contact", label: "Cancellation policy" },
-  { href: "/contact", label: "Refund status" },
-  { href: "/contact", label: "Lost & found" },
-  { href: "/contact", label: "Travel advisories" },
+  { label: "Help centre", action: "Help centre" },
+  { label: "Cancellation policy", action: "Cancellation policy" },
+  { label: "Refund status", action: "Refund status" },
+  { label: "Lost & found", action: "Lost & found" },
+  { label: "Travel advisories", action: "Travel advisories" },
 ];
 
 const socials = [
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter / X" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
+  { icon: Facebook, label: "Facebook" },
+  { icon: Instagram, label: "Instagram" },
+  { icon: Twitter, label: "Twitter / X" },
+  { icon: Linkedin, label: "LinkedIn" },
+  { icon: Youtube, label: "YouTube" },
 ];
 
 export function Footer() {
@@ -41,7 +42,7 @@ export function Footer() {
                 <Bus className="h-5 w-5" strokeWidth={2.4} />
               </span>
               <span className="flex flex-col leading-none">
-                <span className="font-display text-xl font-extrabold">Voyaline</span>
+                <span className="font-display text-xl font-extrabold">Techmarkage</span>
                 <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
                   Express
                 </span>
@@ -51,20 +52,20 @@ export function Footer() {
               {company.shortPitch}
             </p>
             <div className="mt-6 space-y-2.5 text-sm">
-              <a
-                href={`tel:${company.tollFree}`}
+              <button
+                onClick={() => showDemoNotice("Phone support")}
                 className="flex items-center gap-3 text-primary-foreground/80 hover:text-accent transition-colors"
               >
                 <Phone className="h-4 w-4 text-accent" />
                 <span>{company.tollFree} (toll-free, 24×7)</span>
-              </a>
-              <a
-                href={`mailto:${company.email}`}
+              </button>
+              <button
+                onClick={() => showDemoNotice("Email support")}
                 className="flex items-center gap-3 text-primary-foreground/80 hover:text-accent transition-colors"
               >
                 <Mail className="h-4 w-4 text-accent" />
                 <span>{company.email}</span>
-              </a>
+              </button>
               <p className="flex items-start gap-3 text-primary-foreground/80">
                 <MapPin className="h-4 w-4 text-accent mt-0.5 shrink-0" />
                 <span>{company.headquarters}</span>
@@ -79,12 +80,21 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.demo ? (
+                    <button
+                      onClick={() => showDemoNotice(link.label)}
+                      className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors text-left"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -98,7 +108,7 @@ export function Footer() {
               {popularRoutes.slice(0, 6).map((route) => (
                 <li key={route.id}>
                   <Link
-                    href={`/#book`}
+                    href="/#book"
                     className="group flex items-center justify-between text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
                   >
                     <span>
@@ -120,27 +130,25 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {supportLinks.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors"
+                  <button
+                    onClick={() => showDemoNotice(link.action)}
+                    className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors text-left"
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
             <div className="mt-6 flex flex-wrap gap-2">
               {socials.map((s) => (
-                <a
+                <button
                   key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={() => showDemoNotice(`${s.label} profile`)}
                   aria-label={s.label}
                   className="grid h-9 w-9 place-items-center rounded-lg bg-primary-foreground/10 text-primary-foreground/80 transition-all hover:bg-accent hover:text-accent-foreground"
                 >
                   <s.icon className="h-4 w-4" />
-                </a>
+                </button>
               ))}
             </div>
           </div>
@@ -148,22 +156,18 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-primary-foreground/15 pt-8 text-xs text-primary-foreground/60 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span>© {new Date().getFullYear()} {company.legalName}. All rights reserved.</span>
-            <span className="hidden md:inline text-primary-foreground/30">·</span>
-            <span>GST: {company.gst}</span>
-            <span className="hidden md:inline text-primary-foreground/30">·</span>
-            <span>CIN: {company.cac}</span>
+            <span>A demo website built for Techmarkage by {company.author}.</span>
           </div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <Link href="/contact" className="hover:text-primary-foreground transition-colors">
+            <button onClick={() => showDemoNotice("Privacy policy")} className="hover:text-primary-foreground transition-colors">
               Privacy
-            </Link>
-            <Link href="/contact" className="hover:text-primary-foreground transition-colors">
+            </button>
+            <button onClick={() => showDemoNotice("Terms of service")} className="hover:text-primary-foreground transition-colors">
               Terms of service
-            </Link>
-            <Link href="/contact" className="hover:text-primary-foreground transition-colors">
+            </button>
+            <button onClick={() => showDemoNotice("Passenger charter")} className="hover:text-primary-foreground transition-colors">
               Passenger charter
-            </Link>
+            </button>
           </div>
         </div>
       </div>

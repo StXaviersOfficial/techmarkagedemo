@@ -28,6 +28,10 @@ function Counter({
 
   useEffect(() => {
     if (!inView) return;
+    if (value === 0) {
+      setDisplay(0);
+      return;
+    }
     const controls = animate(motionValue, value, {
       duration: 2,
       ease: [0.22, 1, 0.36, 1],
@@ -49,7 +53,7 @@ export function Stats() {
     <section className="relative overflow-hidden bg-primary py-20 sm:py-24 text-primary-foreground">
       <div className="absolute inset-0 bg-grid-dark opacity-40" />
       <div className="absolute -left-32 -top-32 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
-      <div className="absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-blue-500/15 blur-3xl" />
+      <div className="absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-cyan-400/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
@@ -57,11 +61,11 @@ export function Stats() {
             By the numbers
           </span>
           <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-            Eighteen years on the road.
+            A concept built for scale.
           </h2>
           <p className="mt-4 text-base text-primary-foreground/70 sm:text-lg text-pretty">
-            What started with three second-hand coaches and a single Bengaluru–Chennai
-            route is now India&apos;s most punctual private intercity fleet.
+            This is a pre-launch demo. The metrics below will populate once the fleet
+            goes live — for now, they showcase the dashboard layout.
           </p>
         </Reveal>
 
@@ -85,6 +89,13 @@ export function Stats() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal className="mt-8 text-center" delay={0.3}>
+          <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+            Demo mode — real metrics appear after launch
+          </span>
+        </Reveal>
       </div>
     </section>
   );

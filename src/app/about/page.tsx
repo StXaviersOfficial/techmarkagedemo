@@ -8,13 +8,17 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { Reveal, Stagger, staggerItem } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
+import { ScrollProgress } from "@/components/site/scroll-progress";
+import { BackToTop } from "@/components/site/back-to-top";
 import { company, leadership, milestones, values, stats } from "@/lib/data";
+import { showDemoNotice } from "@/lib/demo";
 
 const valueIcons = [Target, Heart, Users, Leaf];
 
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ScrollProgress />
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
@@ -39,17 +43,17 @@ export default function AboutPage() {
               className="max-w-3xl"
             >
               <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
-                Since {company.foundedYear}
+                Launching {company.foundedYear}
               </span>
               <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-balance sm:text-6xl lg:text-7xl">
                 We move people
                 <br />
-                <span className="text-gradient-amber">with dignity.</span>
+                <span className="text-gradient-cyan">with dignity.</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary-foreground/80 text-pretty">
-                Voyaline Express started in 2007 with three reconditioned Tata buses and
-                a single Bengaluru–Chennai route. Today we operate 248 coaches across 86
-                cities — but the philosophy hasn&apos;t changed.
+                Techmarkage Express is a new intercity coach service built around a simple
+                idea: bus travel in India deserves better. This is a demo of what&apos;s
+                coming — the real fleet launches soon.
               </p>
             </motion.div>
           </div>
@@ -61,37 +65,37 @@ export default function AboutPage() {
             <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
               <Reveal className="lg:col-span-5">
                 <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                  Our story
+                  Our vision
                 </span>
                 <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-                  From three buses to India&apos;s most punctual private fleet.
+                  A new name for a forgotten category.
                 </h2>
               </Reveal>
               <Reveal className="lg:col-span-7" delay={0.1}>
                 <div className="space-y-5 text-base leading-relaxed text-muted-foreground text-pretty">
                   <p>
-                    In 2007, Ravindra Pai — then a 31-year-old mechanical engineer working
-                    at a trucking company in Hosur — noticed something strange about
-                    intercity bus travel in South India. The buses were full. The demand
-                    was obvious. Yet the experience was universally miserable.
+                    Intercity bus travel in India moves millions of people every day. The
+                    demand is obvious, the corridors are proven, yet the experience remains
+                    universally miserable — cramped seats, broken AC, opaque pricing, and
+                    no way to know when your bus will actually show up.
                   </p>
                   <p>
-                    He quit his job, mortgaged his father&apos;s house, and bought three
-                    1998 Tata Starbus coaches that had been retired by a state
-                    transport utility. The first month on the Bengaluru–Chennai corridor
-                    carried 412 passengers. The buses broke down 23 times.
+                    Techmarkage Express was founded to fix that. Not with a marketing
+                    rethink, but with an operational one: buy the right coaches, hire and
+                    train drivers as salaried professionals, instrument every vehicle with
+                    live telematics, and hold ourselves to a 20-minute on-time guarantee.
                   </p>
                   <p>
-                    Eighteen years later, the breakdowns are a rounding error — the fleet
-                    averages 99.4% uptime — but Ravindra still personally walks every new
-                    coach through final inspection before it enters service. The
-                    question he asks the engineering team hasn&apos;t changed either:
+                    The question the founding team asks before every decision hasn&apos;t
+                    changed:
                     <span className="font-semibold text-foreground"> would we put our own family on this bus?</span>
                   </p>
                   <p>
-                    That single test has shaped every decision since — from the seat foam
-                    density we specify, to the mandatory 4-hour rest between driver
-                    shifts, to the 20-minute on-time guarantee we now offer network-wide.
+                    That single test shapes everything — from the seat foam density we
+                    specify, to the mandatory 4-hour rest between driver shifts, to the
+                    on-time guarantee we plan to offer network-wide from day one. This
+                    demo showcases the digital experience we&apos;re building. The fleet is
+                    next.
                   </p>
                 </div>
               </Reveal>
@@ -160,16 +164,19 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Milestones timeline */}
+        {/* Roadmap timeline */}
         <section className="py-24 sm:py-32 bg-secondary/40">
           <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
             <Reveal className="mx-auto max-w-2xl text-center">
               <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
-                Milestones
+                Roadmap
               </span>
               <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-                Eighteen years, chapter by chapter.
+                The road ahead.
               </h2>
+              <p className="mt-4 text-base text-muted-foreground sm:text-lg text-pretty">
+                Our planned milestones from concept to full national coverage.
+              </p>
             </Reveal>
 
             <div className="relative mt-14">
@@ -218,11 +225,11 @@ export default function AboutPage() {
                 Leadership
               </span>
               <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-                The people behind the wheel.
+                The people behind the vision.
               </h2>
               <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg text-pretty">
-                A 38-person leadership team that averages 14 years in Indian surface
-                transport. Four of them started as Voyaline drivers.
+                A founding team with decades of combined experience in surface transport,
+                aviation operations, and fleet telematics.
               </p>
             </Reveal>
 
@@ -237,7 +244,7 @@ export default function AboutPage() {
                   <div className="relative aspect-square overflow-hidden">
                     <Image
                       src={person.avatar}
-                      alt={`${person.name}, ${person.role} at Voyaline Express`}
+                      alt={`${person.name}, ${person.role} at Techmarkage Express`}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -264,6 +271,12 @@ export default function AboutPage() {
         {/* Stats banner */}
         <section className="bg-primary py-20 text-primary-foreground sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="text-center mb-10">
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                Demo mode — metrics populate after launch
+              </span>
+            </Reveal>
             <div className="grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
               {stats.map((s) => (
                 <Reveal key={s.label} className="text-center">
@@ -290,8 +303,8 @@ export default function AboutPage() {
                 Travel with us.
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg text-pretty">
-                Eighty-six cities, 248 coaches, and a 20-minute on-time guarantee.
-                Your seat is waiting.
+                A demo built to showcase the Techmarkage Express experience. The real fleet
+                launches soon — your seat is waiting.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Button
@@ -300,11 +313,17 @@ export default function AboutPage() {
                   className="bg-accent text-accent-foreground hover:bg-accent/90 h-14 px-8"
                 >
                   <Link href="/#book">
-                    Book a ticket
+                    Try the demo booking
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="h-14 px-8">
+                <Button
+                  onClick={() => showDemoNotice("Contact form")}
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="h-14 px-8"
+                >
                   <Link href="/contact">Get in touch</Link>
                 </Button>
               </div>
@@ -313,6 +332,7 @@ export default function AboutPage() {
         </section>
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }

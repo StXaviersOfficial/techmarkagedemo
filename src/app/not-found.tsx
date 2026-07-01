@@ -6,10 +6,14 @@ import { Bus, Home, Search, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
+import { ScrollProgress } from "@/components/site/scroll-progress";
+import { BackToTop } from "@/components/site/back-to-top";
+import { showDemoNotice } from "@/lib/demo";
 
 export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ScrollProgress />
       <Navbar />
       <main className="flex flex-1 items-center justify-center overflow-hidden px-4 py-20">
         <div className="relative mx-auto max-w-3xl text-center">
@@ -66,20 +70,20 @@ export default function NotFound() {
                   width="140"
                   height="60"
                   rx="10"
-                  fill="#0B1B3B"
+                  fill="#042F38"
                 />
                 {/* Windows */}
-                <rect x="72" y="130" width="22" height="16" rx="2" fill="#FCD34D" />
-                <rect x="100" y="130" width="22" height="16" rx="2" fill="#FCD34D" />
-                <rect x="128" y="130" width="22" height="16" rx="2" fill="#FCD34D" />
-                <rect x="156" y="130" width="22" height="16" rx="2" fill="#FCD34D" />
+                <rect x="72" y="130" width="22" height="16" rx="2" fill="#67E8F9" />
+                <rect x="100" y="130" width="22" height="16" rx="2" fill="#67E8F9" />
+                <rect x="128" y="130" width="22" height="16" rx="2" fill="#67E8F9" />
+                <rect x="156" y="130" width="22" height="16" rx="2" fill="#67E8F9" />
                 {/* Headlight */}
-                <circle cx="195" cy="150" r="4" fill="#F59E0B" />
+                <circle cx="195" cy="150" r="4" fill="#06B6D4" />
                 {/* Wheels */}
-                <circle cx="90" cy="185" r="12" fill="#0B1B3B" />
-                <circle cx="90" cy="185" r="6" fill="#94A3B8" />
-                <circle cx="170" cy="185" r="12" fill="#0B1B3B" />
-                <circle cx="170" cy="185" r="6" fill="#94A3B8" />
+                <circle cx="90" cy="185" r="12" fill="#042F38" />
+                <circle cx="90" cy="185" r="6" fill="#67E8F9" />
+                <circle cx="170" cy="185" r="12" fill="#042F38" />
+                <circle cx="170" cy="185" r="6" fill="#67E8F9" />
               </motion.g>
 
               {/* Signpost */}
@@ -89,8 +93,8 @@ export default function NotFound() {
                 transition={{ delay: 0.5 }}
               >
                 <line x1="450" y1="200" x2="450" y2="100" stroke="currentColor" className="text-border" strokeWidth="4" />
-                <rect x="420" y="80" width="120" height="36" rx="4" fill="#F59E0B" />
-                <text x="480" y="104" textAnchor="middle" fill="#0B1B3B" fontSize="14" fontWeight="700" fontFamily="sans-serif">
+                <rect x="420" y="80" width="120" height="36" rx="4" fill="#06B6D4" />
+                <text x="480" y="104" textAnchor="middle" fill="#042F38" fontSize="14" fontWeight="700" fontFamily="sans-serif">
                   WRONG TURN
                 </text>
               </motion.g>
@@ -127,7 +131,7 @@ export default function NotFound() {
             className="mt-8"
           >
             <div className="font-display text-7xl font-extrabold tracking-tight text-primary sm:text-9xl">
-              4<span className="text-gradient-amber">0</span>4
+              4<span className="text-gradient-cyan">0</span>4
             </div>
             <h1 className="mt-4 font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
               This route doesn&apos;t exist.
@@ -159,17 +163,18 @@ export default function NotFound() {
             <div className="mt-10 flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <Bus className="h-4 w-4 text-accent" />
               <span>Or call us at</span>
-              <a
-                href="tel:18004258690"
+              <button
+                onClick={() => showDemoNotice("Phone support")}
                 className="font-semibold text-primary hover:text-accent transition-colors"
               >
                 1800 425 8690
-              </a>
+              </button>
             </div>
           </motion.div>
         </div>
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }

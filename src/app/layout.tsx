@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "sonner";
+import { ThemeProvider } from "@/components/site/theme-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,9 +19,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Voyaline Express | Premium Intercity Bus Travel",
+  title: "Techmarkage Express | Premium Intercity Bus Travel — Demo",
   description:
-    "Voyaline Express operates 240+ premium coaches across 86 cities. Sleeper, semi-sleeper, AC seater, and Volvo multi-axle buses with live tracking, on-time guarantee, and fares starting at ₹299.",
+    "Techmarkage Express is a premium intercity coach service concept. This is a portfolio demo built by Amrit Raj featuring sleeper, semi-sleeper, AC seater, and Volvo multi-axle buses with live tracking and on-time guarantee.",
   keywords: [
     "bus booking",
     "intercity bus",
@@ -28,24 +30,25 @@ export const metadata: Metadata = {
     "AC bus",
     "bus tickets online",
     "live bus tracking",
-    "Voyaline Express",
+    "Techmarkage Express",
+    "demo",
   ],
-  authors: [{ name: "Voyaline Travels Pvt. Ltd." }],
-  metadataBase: new URL("https://voyaline.express"),
+  authors: [{ name: "Amrit Raj" }],
+  metadataBase: new URL("https://techmarkage.express"),
   openGraph: {
-    title: "Voyaline Express | Premium Intercity Bus Travel",
+    title: "Techmarkage Express | Premium Intercity Bus Travel — Demo",
     description:
-      "240+ premium coaches. 86 cities. Live tracking. On-time guarantee. Travel further, travel smarter with Voyaline Express.",
-    url: "https://voyaline.express",
-    siteName: "Voyaline Express",
+      "A portfolio demo by Amrit Raj. Premium intercity coach service concept with live tracking, on-time guarantee, and animated UI.",
+    url: "https://techmarkage.express",
+    siteName: "Techmarkage Express",
     type: "website",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Voyaline Express | Premium Intercity Bus Travel",
+    title: "Techmarkage Express | Premium Intercity Bus Travel — Demo",
     description:
-      "240+ premium coaches. 86 cities. Live tracking. On-time guarantee.",
+      "A portfolio demo by Amrit Raj. Premium intercity coach service concept.",
   },
   icons: {
     icon: "/logo.svg",
@@ -62,8 +65,28 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${sora.variable} font-sans antialiased bg-background text-foreground`}
       >
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+          <Sonner
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "var(--card)",
+                border: "1px solid var(--border)",
+                color: "var(--foreground)",
+              },
+              classNames: {
+                toast: "font-sans",
+              },
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

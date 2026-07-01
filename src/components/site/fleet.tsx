@@ -8,6 +8,7 @@ import { fleet } from "@/lib/data";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { showDemoNotice } from "@/lib/demo";
 
 export function Fleet() {
   const [active, setActive] = useState(0);
@@ -30,7 +31,7 @@ export function Fleet() {
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg text-pretty">
             From ₹199 non-AC district connectors to lie-flat Mercedes-Benz sleepers, every
-            coach is maintained in-house at our 14 depots and inspected before every
+            coach will be maintained in-house at our depots and inspected before every
             single trip.
           </p>
         </Reveal>
@@ -69,7 +70,7 @@ export function Fleet() {
               <div className="relative aspect-[4/3] lg:aspect-auto lg:min-h-[28rem]">
                 <Image
                   src={bus.image}
-                  alt={`${bus.name} coach operated by Voyaline Express`}
+                  alt={`${bus.name} coach — Techmarkage Express`}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
@@ -115,16 +116,17 @@ export function Fleet() {
 
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Button
-                    asChild
+                    onClick={() => showDemoNotice("Coach reservation")}
                     className="bg-accent text-accent-foreground hover:bg-accent/90"
                   >
-                    <a href="#book">
-                      Reserve this coach
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
+                    Reserve this coach
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                  <Button asChild variant="outline">
-                    <a href="#fleet">Compare classes</a>
+                  <Button
+                    onClick={() => showDemoNotice("Coach comparison")}
+                    variant="outline"
+                  >
+                    Compare classes
                   </Button>
                 </div>
               </div>

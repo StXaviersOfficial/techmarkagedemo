@@ -32,7 +32,7 @@ export function WhyChooseUs() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-            Why Voyaline
+            Why Techmarkage
           </span>
           <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
             The details that decide
@@ -56,7 +56,7 @@ export function WhyChooseUs() {
                 transition={{ type: "spring", stiffness: 300, damping: 24 }}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-card p-7 shadow-sm transition-shadow hover:shadow-xl hover:shadow-primary/5"
               >
-                <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-accent to-amber-300 transition-transform duration-300 group-hover:scale-x-100" />
+                <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-accent to-cyan-300 transition-transform duration-300 group-hover:scale-x-100" />
                 <div className="relative">
                   <div className="grid h-14 w-14 place-items-center rounded-xl bg-primary/5 text-primary transition-all duration-300 group-hover:bg-accent group-hover:text-accent-foreground">
                     <Icon className="h-7 w-7" strokeWidth={1.8} />

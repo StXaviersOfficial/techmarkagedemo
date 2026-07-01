@@ -18,7 +18,10 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { Reveal, Stagger, staggerItem } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
+import { ScrollProgress } from "@/components/site/scroll-progress";
+import { BackToTop } from "@/components/site/back-to-top";
 import { company, contactSubjects, faqs } from "@/lib/data";
+import { showDemoNotice } from "@/lib/demo";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "loading" | "done";
@@ -26,25 +29,25 @@ type Status = "idle" | "loading" | "done";
 const offices = [
   {
     city: "Bengaluru",
-    role: "Headquarters",
+    role: "Headquarters (planned)",
     address: "3rd Floor, Aurum House, MG Road, Bengaluru 560001",
     phone: "+91 80 4567 1890",
   },
   {
     city: "Mumbai",
-    role: "Western regional depot",
+    role: "Western regional depot (planned)",
     address: "Plot 14, MIDC Phase 2, Andheri East, Mumbai 400093",
     phone: "+91 22 4321 7780",
   },
   {
     city: "Delhi",
-    role: "Northern regional depot",
+    role: "Northern regional depot (planned)",
     address: "Block C, Anand Vihar ISBT, Delhi 110092",
     phone: "+91 11 4567 2290",
   },
   {
     city: "Hyderabad",
-    role: "Central control centre",
+    role: "Central control centre (planned)",
     address: "Sy. No. 84, Gachibowli Phase 2, Hyderabad 500032",
     phone: "+91 40 4321 8870",
   },
@@ -71,13 +74,14 @@ export default function ContactPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
+      <ScrollProgress />
       <Navbar />
       <main className="flex-1">
         {/* Hero */}
         <section className="relative overflow-hidden bg-primary py-28 text-primary-foreground sm:py-36">
           <div className="absolute inset-0 bg-grid-dark opacity-40" />
           <div className="absolute -left-32 top-1/3 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
-          <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-blue-500/15 blur-3xl" />
+          <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-cyan-400/15 blur-3xl" />
           <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -91,12 +95,12 @@ export default function ContactPage() {
               <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-balance sm:text-6xl lg:text-7xl">
                 Talk to a person,
                 <br />
-                <span className="text-gradient-amber">not a chatbot.</span>
+                <span className="text-gradient-cyan">not a chatbot.</span>
               </h1>
               <p className="mt-6 max-w-2xl text-lg leading-relaxed text-primary-foreground/80 text-pretty">
-                Our contact centre answers 94% of calls within 60 seconds, 24 hours a
-                day. Every message sent through this form is read by a human and
-                acknowledged within 90 seconds.
+                This is a demo contact form. In the production build, our contact centre
+                will answer 94% of calls within 60 seconds, 24 hours a day. Every message
+                sent through this form will be read by a human.
               </p>
             </motion.div>
           </div>
@@ -111,13 +115,13 @@ export default function ContactPage() {
                   icon: Phone,
                   title: "Call us, 24×7",
                   lines: [company.tollFree, "(toll-free from any Indian mobile)"],
-                  href: `tel:${company.tollFree}`,
+                  action: "Phone support",
                 },
                 {
                   icon: Mail,
                   title: "Email us",
                   lines: [company.email, "(replies within 2 working hours)"],
-                  href: `mailto:${company.email}`,
+                  action: "Email support",
                 },
                 {
                   icon: Clock,
@@ -125,12 +129,12 @@ export default function ContactPage() {
                   lines: ["Contact centre: 24×7", "Depots: 4:00 AM – 11:30 PM IST"],
                 },
               ].map((c) => (
-                <motion.a
+                <motion.button
                   key={c.title}
-                  href={c.href ?? undefined}
+                  onClick={() => c.action && showDemoNotice(c.action)}
                   variants={staggerItem}
                   whileHover={{ y: -4 }}
-                  className="group rounded-2xl border border-border bg-card p-7 shadow-sm transition-shadow hover:shadow-lg hover:shadow-primary/5"
+                  className="group rounded-2xl border border-border bg-card p-7 text-left shadow-sm transition-shadow hover:shadow-lg hover:shadow-primary/5"
                 >
                   <div className="grid h-12 w-12 place-items-center rounded-xl bg-primary/5 text-primary transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
                     <c.icon className="h-6 w-6" strokeWidth={1.8} />
@@ -143,7 +147,7 @@ export default function ContactPage() {
                       <p key={l}>{l}</p>
                     ))}
                   </div>
-                </motion.a>
+                </motion.button>
               ))}
             </Stagger>
           </div>
@@ -163,8 +167,8 @@ export default function ContactPage() {
                     </span>
                   </div>
                   <p className="mt-2 text-sm text-muted-foreground">
-                    Fields marked with * are required. We&apos;ll reply to the email
-                    address you provide.
+                    This is a demo form — submissions won&apos;t be received. Fields
+                    marked with * are required.
                   </p>
 
                   <form onSubmit={handleSubmit} className="mt-8 space-y-5">
@@ -270,7 +274,7 @@ export default function ContactPage() {
                           animate={{ opacity: 1, x: 0 }}
                           className="text-sm text-muted-foreground"
                         >
-                          Ticket <span className="font-mono font-semibold text-foreground">#VY-{Math.floor(10000 + Math.random() * 89999)}</span> created. We&apos;ll reply within 2 hours.
+                          Demo ticket <span className="font-mono font-semibold text-foreground">#TM-{Math.floor(10000 + Math.random() * 89999)}</span> created. (No real message was sent.)
                         </motion.span>
                       )}
                     </div>
@@ -309,7 +313,7 @@ export default function ContactPage() {
                     <div className="flex items-center gap-2">
                       <MapPin className="h-5 w-5 text-accent" />
                       <span className="font-display text-base font-bold tracking-tight">
-                        Regional depots
+                        Regional depots (planned)
                       </span>
                     </div>
                     <ul className="mt-4 space-y-4">
@@ -323,9 +327,12 @@ export default function ContactPage() {
                           </div>
                           <p className="mt-1 text-muted-foreground">{o.address}</p>
                           <p className="mt-1 text-muted-foreground">
-                            <a href={`tel:${o.phone}`} className="hover:text-accent">
+                            <button
+                              onClick={() => showDemoNotice(`${o.city} depot phone`)}
+                              className="hover:text-accent transition-colors"
+                            >
                               {o.phone}
-                            </a>
+                            </button>
                           </p>
                         </li>
                       ))}
@@ -398,6 +405,7 @@ export default function ContactPage() {
         </section>
       </main>
       <Footer />
+      <BackToTop />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { ArrowRight, Bus, Star, MapPin, Clock, ShieldCheck } from "lucide-react";
+import { ArrowRight, Bus, Star, MapPin, Clock, ShieldCheck, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
@@ -17,6 +17,7 @@ export function Hero() {
   const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const yContent = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
     <section
@@ -24,10 +25,7 @@ export function Hero() {
       className="relative min-h-[100svh] w-full overflow-hidden bg-primary text-primary-foreground"
     >
       {/* Background image with parallax */}
-      <motion.div
-        style={{ y: yBg }}
-        className="absolute inset-0 -z-10"
-      >
+      <motion.div style={{ y: yBg, scale }} className="absolute inset-0 -z-10">
         <Image
           src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=2400&q=80"
           alt="Highway winding through a scenic valley at dusk"
@@ -45,22 +43,14 @@ export function Hero() {
 
       {/* Animated gradient orbs */}
       <motion.div
-        animate={{
-          x: [0, 60, 0],
-          y: [0, -40, 0],
-          scale: [1, 1.1, 1],
-        }}
+        animate={{ x: [0, 60, 0], y: [0, -40, 0], scale: [1, 1.1, 1] }}
         transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         className="absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-accent/20 blur-3xl"
       />
       <motion.div
-        animate={{
-          x: [0, -50, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.15, 1],
-        }}
+        animate={{ x: [0, -50, 0], y: [0, 50, 0], scale: [1, 1.15, 1] }}
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -right-32 bottom-1/4 h-[32rem] w-[32rem] rounded-full bg-blue-500/15 blur-3xl"
+        className="absolute -right-32 bottom-1/4 h-[32rem] w-[32rem] rounded-full bg-cyan-400/15 blur-3xl"
       />
 
       {/* Content */}
@@ -80,7 +70,7 @@ export function Hero() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
             <span className="text-xs font-semibold uppercase tracking-wider text-primary-foreground/90">
-              248 coaches live across 86 cities
+              Demo build · concept preview
             </span>
           </motion.div>
 
@@ -92,7 +82,7 @@ export function Hero() {
           >
             Travel further.
             <br />
-            <span className="text-gradient-amber">Travel smarter.</span>
+            <span className="text-gradient-cyan">Travel smarter.</span>
           </motion.h1>
 
           <motion.p
@@ -101,9 +91,9 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="mt-6 max-w-xl text-lg leading-relaxed text-primary-foreground/80 sm:text-xl text-pretty"
           >
-            Premium sleeper, semi-sleeper, and Volvo multi-axle coaches across India.
-            Live GPS tracking, on-time guarantee, and fares that respect your wallet —
-            starting at ₹299.
+            A premium intercity coach service concept — sleeper, semi-sleeper, and Volvo
+            multi-axle buses across India. Live GPS tracking, on-time guarantee, and fares
+            that respect your wallet, starting at ₹299.
           </motion.p>
 
           <motion.div
@@ -145,11 +135,18 @@ export function Hero() {
             <div className="flex items-center gap-2">
               <div className="flex">
                 {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} className="h-4 w-4 fill-accent text-accent" />
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.9 + i * 0.1, type: "spring", stiffness: 200 }}
+                  >
+                    <Star className="h-4 w-4 fill-accent text-accent" />
+                  </motion.span>
                 ))}
               </div>
               <span className="text-sm text-primary-foreground/80">
-                <span className="font-bold text-primary-foreground">4.8</span> · 38,400+ reviews
+                <span className="font-bold text-primary-foreground">5.0</span> · demo preview
               </span>
             </div>
             <div className="hidden h-5 w-px bg-primary-foreground/20 sm:block" />
@@ -175,6 +172,23 @@ export function Hero() {
       >
         <Bus className="h-8 w-8 text-accent" />
         <div className="h-px w-32 bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-1 text-primary-foreground/50"
+        >
+          <span className="text-[10px] font-medium uppercase tracking-widest">Scroll</span>
+          <ChevronDown className="h-4 w-4" />
+        </motion.div>
       </motion.div>
 
       {/* Bottom fade */}

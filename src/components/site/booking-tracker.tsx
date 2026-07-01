@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, MapPin, Calendar, Users, CheckCircle2, Loader2, ArrowRight, Bus, X } from "lucide-react";
+import { Search, MapPin, Calendar, Users, CheckCircle2, Loader2, ArrowRight, Bus } from "lucide-react";
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { showDemoNotice } from "@/lib/demo";
 
 type FormState = {
   from: string;
@@ -49,7 +50,7 @@ export function BookingTracker() {
     if (!form.from || !form.to || !form.date) return;
     setStatus("loading");
     setTimeout(() => {
-      const pnrNum = "VY" + Math.floor(100000 + Math.random() * 900000);
+      const pnrNum = "TM" + Math.floor(100000 + Math.random() * 900000);
       setPnr(pnrNum);
       setStatus("success");
     }, 1600);
@@ -80,7 +81,7 @@ export function BookingTracker() {
             Search a route. Track your coach. Done.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg text-pretty">
-            One search across 248 coaches and 86 cities. Once you book, your live
+            One search across our planned fleet and city network. Once you book, your live
             tracking link lands in your inbox instantly.
           </p>
         </Reveal>
@@ -108,10 +109,11 @@ export function BookingTracker() {
                       <CheckCircle2 className="h-10 w-10" />
                     </motion.div>
                     <h3 className="mt-6 font-display text-2xl font-extrabold sm:text-3xl">
-                      You&apos;re booked.
+                      You&apos;re booked. <span className="text-accent">(Demo)</span>
                     </h3>
                     <p className="mt-3 text-muted-foreground">
-                      A confirmation and live tracking link have been sent to your email.
+                      This is a demo confirmation. No real booking has been made — a
+                      tracking link and confirmation will be sent once the service launches.
                     </p>
 
                     <div className="mx-auto mt-8 max-w-md rounded-2xl border border-dashed border-border bg-secondary/40 p-6 text-left">
@@ -143,7 +145,7 @@ export function BookingTracker() {
                         </div>
                       </div>
                       <div className="mt-4 rounded-lg bg-accent/10 px-3 py-2 text-xs text-accent-foreground/80">
-                        Gate opens 25 minutes before departure. Carry a valid photo ID.
+                        Demo build · No payment was processed · Built by Amrit Raj
                       </div>
                     </div>
 
@@ -186,7 +188,7 @@ export function BookingTracker() {
                         />
                       </div>
 
-                      {/* Swap button (mobile-friendly) */}
+                      {/* Swap button */}
                       <div className="relative hidden lg:flex items-end justify-center pb-1">
                         <button
                           type="button"
@@ -276,7 +278,8 @@ export function BookingTracker() {
                     </div>
 
                     <p className="text-xs text-muted-foreground">
-                      Demo search — try “Bengaluru” to “Mumbai” for a date this week.
+                      Demo search — try “Bengaluru” to “Mumbai” for a date this week. No
+                      payment is processed.
                     </p>
                   </motion.form>
                 )}
@@ -306,14 +309,12 @@ export function BookingTracker() {
             </div>
             <div className="flex lg:justify-end">
               <Button
-                asChild
+                onClick={() => showDemoNotice("Live tracking")}
                 variant="outline"
                 className="border-primary-foreground/30 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
               >
-                <a href="#book">
-                  Track a booked trip
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                Track a booked trip
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>

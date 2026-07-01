@@ -63,17 +63,17 @@ export function Testimonials() {
             From our travellers
           </span>
           <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-            1.24 million trips.
-            <br className="hidden sm:block" /> 38,400+ five-star reviews.
+            Built for demo. Ready for launch.
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg text-pretty">
-            We don&apos;t curate these. Every review below was left voluntarily by a
-            paying Voyaline passenger in the last 90 days.
+            These are sample reviews that showcase the review carousel. Every review
+            below will be replaced with real passenger feedback once the service goes
+            live.
           </p>
         </Reveal>
       </div>
 
-      <div className="relative mt-14 marquee-paused">
+      <div className="relative mt-14 marquee-paused overflow-hidden">
         {/* Edge fades */}
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-secondary/90 to-transparent sm:w-32" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-secondary/90 to-transparent sm:w-32" />
@@ -85,7 +85,7 @@ export function Testimonials() {
         </div>
       </div>
 
-      <div className="relative mt-6 marquee-paused">
+      <div className="relative mt-6 marquee-paused overflow-hidden">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-secondary/90 to-transparent sm:w-32" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-secondary/90 to-transparent sm:w-32" />
         <div className="flex w-max animate-marquee-slow" style={{ animationDirection: "reverse" }}>

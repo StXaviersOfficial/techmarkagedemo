@@ -1,27 +1,29 @@
-// Centralized placeholder content for Voyaline Express.
-// All names, numbers, routes, and testimonials are fictional.
+// Centralized content for Techmarkage Express — a demo site by Amrit Raj.
+// All names, routes, and testimonials are fictional. Stats are set to 0
+// to signal this is a pre-launch demo build.
 
 export const company = {
-  name: "Voyaline Express",
-  legalName: "Voyaline Travels Pvt. Ltd.",
+  name: "Techmarkage Express",
+  legalName: "Techmarkage Express (Demo)",
   tagline: "Every mile, beautifully done.",
   shortPitch:
-    "Premium intercity coach service connecting 86 cities across India with sleeper, semi-sleeper, and Volvo multi-axle buses.",
-  foundedYear: 2007,
+    "A premium intercity coach service concept connecting cities across India with sleeper, semi-sleeper, and Volvo multi-axle buses. This is a demo build — the real fleet launches soon.",
+  foundedYear: 2026,
   headquarters: "3rd Floor, Aurum House, MG Road, Bengaluru 560001",
   phone: "+91 80 4567 1890",
   tollFree: "1800 425 8690",
-  email: "care@voyaline.express",
-  pressEmail: "press@voyaline.express",
+  email: "care@techmarkage.express",
+  pressEmail: "press@techmarkage.express",
   gst: "29AAGCV1247F1ZP",
-  cac: "U60221KA2007PTC042118",
+  cac: "U60221KA2026PTC000000",
+  author: "Amrit Raj",
 };
 
 export const stats = [
-  { label: "Coaches in fleet", value: 248, suffix: "+" },
-  { label: "Cities connected", value: 86, suffix: "" },
-  { label: "Happy travelers", value: 1240000, suffix: "+", compact: true },
-  { label: "Years on the road", value: 18, suffix: "" },
+  { label: "Coaches in fleet", value: 0, suffix: "" },
+  { label: "Cities connected", value: 0, suffix: "" },
+  { label: "Happy travelers", value: 0, suffix: "", compact: true },
+  { label: "Years on the road", value: 0, suffix: "" },
 ];
 
 export const whyChooseUs = [
@@ -29,7 +31,7 @@ export const whyChooseUs = [
     icon: "shield",
     title: "Safety first, always",
     description:
-      "Every Voyaline coach is fitted with disc brakes, ABS, ESC, and speed governors. Two trained drivers per long-haul route, plus a 24x7 control room monitoring telematics in real time.",
+      "Every Techmarkage coach will be fitted with disc brakes, ABS, ESC, and speed governors. Two trained drivers per long-haul route, plus a 24×7 control room monitoring telematics in real time.",
   },
   {
     icon: "armchair",
@@ -47,7 +49,7 @@ export const whyChooseUs = [
     icon: "tag",
     title: "Honest, affordable fares",
     description:
-      "Dynamic pricing that stays fair. Sleeper fares start at ₹299, with no hidden convenience fees, no surge spikes on weekends, and free cancellations up to 8 hours before departure.",
+      "Dynamic pricing that stays fair. Sleeper fares starting at ₹299, with no hidden convenience fees, no surge spikes on weekends, and free cancellations up to 8 hours before departure.",
   },
   {
     icon: "snowflake",
@@ -223,7 +225,7 @@ export const fleet: BusType[] = [
     name: "Ashok Leyland 12.5M Semi-Sleeper",
     tagline: "The dependable mid-distance workhorse",
     image:
-      "https://images.unsplash.com/photo-1554260570-9140fd3b7614?auto=format&fit=crop&w=1200&q=80",
+      "https://images.unsplash.com/photo-1554260570-e9689a3418b8?auto=format&fit=crop&w=1200&q=80",
     seats: 41,
     features: ["160° recline", "Overhead racks", "Charging ports", "Climate control", "First-aid kit", "CCTV monitored"],
     fareFrom: 599,
@@ -301,7 +303,7 @@ export const testimonials: Testimonial[] = [
     route: "Hyderabad → Pune",
     rating: 5,
     quote:
-      "I travel this route every two weeks for work. Voyaline is the only operator where the AC actually works, the blankets are clean, and the staff don't blast their own music at 2am.",
+      "I travel this route every two weeks for work. Techmarkage is the only operator where the AC actually works, the blankets are clean, and the staff don't blast their own music at 2am.",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=80",
     date: "January 2026",
   },
@@ -309,7 +311,7 @@ export const testimonials: Testimonial[] = [
     id: "t4",
     name: "Vikram Anand",
     route: "Chennai → Bengaluru",
-    rating: 4,
+    rating: 5,
     quote:
       "Five departures a day on this route means I never have to plan ahead. The AC seater is comfortable for a 5-hour hop and the price hasn't moved in two years.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
@@ -331,7 +333,7 @@ export const testimonials: Testimonial[] = [
     route: "Ahmedabad → Surat",
     rating: 5,
     quote:
-      "₹399 for a 4-hour ride with USB charging and air suspension. The competition charges the same for a rattling non-AC bus. Voyaline is the obvious choice on this corridor.",
+      "₹399 for a 4-hour ride with USB charging and air suspension. The competition charges the same for a rattling non-AC bus. Techmarkage is the obvious choice on this corridor.",
     avatar: "https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=200&q=80",
     date: "February 2026",
   },
@@ -349,9 +351,9 @@ export const testimonials: Testimonial[] = [
     id: "t8",
     name: "Aditya Kulkarni",
     route: "Indore → Bhopal",
-    rating: 4,
+    rating: 5,
     quote:
-      "Frequent service means I never need to wait more than 30 minutes at the terminal. The buses leave on time, every time. Punctuality is Voyaline's superpower.",
+      "Frequent service means I never need to wait more than 30 minutes at the terminal. The buses leave on time, every time. Punctuality is Techmarkage's superpower.",
     avatar: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=200&q=80",
     date: "January 2026",
   },
@@ -368,25 +370,25 @@ export const leadership: TeamMember[] = [
   {
     name: "Ravindra Pai",
     role: "Founder & Managing Director",
-    bio: "Started Voyaline in 2007 with three second-hand Tata buses and a route between Bengaluru and Chennai. Eighteen years later, the fleet has crossed 240 coaches and the philosophy hasn't changed — move people with dignity.",
+    bio: "Leading the vision behind Techmarkage Express — a new intercity coach service built around dignity, punctuality, and comfort. Eighteen years in surface transport logistics.",
     avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80",
   },
   {
     name: "Lakshmi Venkataraman",
     role: "Chief Operating Officer",
-    bio: "Oversees a network of 14 depots, 1,100 crew members, and the 24x7 operations control centre in Bengaluru. Previously ran ground operations at a major Indian low-cost carrier.",
+    bio: "Designing the depot network, crew scheduling, and the 24×7 operations control centre in Bengaluru. Previously ran ground operations at a major Indian low-cost carrier.",
     avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
   },
   {
     name: "Imtiaz Khan",
     role: "Chief Technology Officer",
-    bio: "Built the live tracking stack from scratch — telematics, geo-fencing, the consumer app, and the driver-facing PDA. Holds three patents in fleet telematics.",
+    bio: "Building the live tracking stack from scratch — telematics, geo-fencing, the consumer app, and the driver-facing PDA. Holds three patents in fleet telematics.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
   },
   {
     name: "Sara Mathew",
     role: "Head of Customer Experience",
-    bio: "Leads the 220-seat contact centre and the in-app support team. Insists that every complaint is acknowledged within 90 seconds, no exceptions.",
+    bio: "Leads the contact centre and in-app support team. Insists that every complaint is acknowledged within 90 seconds, no exceptions.",
     avatar: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=400&q=80",
   },
 ];
@@ -399,46 +401,40 @@ export type Milestone = {
 
 export const milestones: Milestone[] = [
   {
-    year: "2007",
-    title: "Three buses, one corridor",
-    description:
-      "Voyaline launches with a single Bengaluru–Chennai route operated by three reconditioned Tata Starbus coaches. The first month sees 412 passengers.",
-  },
-  {
-    year: "2010",
-    title: "First Volvo joins the fleet",
-    description:
-      "Voyaline becomes the first private operator in Karnataka to add a Volvo 9400 B7R to a daily schedule. Bookings triple within three months.",
-  },
-  {
-    year: "2014",
-    title: "Sleeper network launches",
-    description:
-      "A dedicated overnight sleeper product rolls out across 18 long-haul routes. Live tracking goes live in the consumer app the same quarter.",
-  },
-  {
-    year: "2018",
-    title: "Crossing 100 cities",
-    description:
-      "Network reaches 102 cities and 6,400 daily departures. Voyaline opens its first depot outside South India, in Pune.",
-  },
-  {
-    year: "2021",
-    title: "Electric shuttle pilot",
-    description:
-      "Switch EiV 22 electric coaches begin airport shuttle trials in Bengaluru. The pilot logs 1.2 million zero-emission kilometres in 18 months.",
-  },
-  {
-    year: "2024",
-    title: "On-time guarantee programme",
-    description:
-      "The 20-minute on-time guarantee rolls out network-wide. In the first year, 97.4% of departures met the threshold.",
-  },
-  {
     year: "2026",
-    title: "240 coaches, 86 cities",
+    title: "The idea takes shape",
     description:
-      "Voyaline crosses 248 coaches and 1.24 million travellers carried. The next target: a fully electric airport-shuttle corridor in Hyderabad.",
+      "Techmarkage Express is founded with a simple premise: intercity bus travel in India deserves better. The founding team begins route planning and fleet acquisition.",
+  },
+  {
+    year: "Q3 2026",
+    title: "First coaches ordered",
+    description:
+      "An initial batch of Volvo 9400 multi-axle coaches and Mercedes-Benz O500 sleepers is ordered. Depot leases signed in Bengaluru, Mumbai, and Hyderabad.",
+  },
+  {
+    year: "Q4 2026",
+    title: "Pilot corridor launches",
+    description:
+      "The Bengaluru–Chennai–Bengaluru corridor goes live as a pilot. Live GPS tracking, the consumer app, and the on-time guarantee roll out from day one.",
+  },
+  {
+    year: "Q1 2027",
+    title: "Network expansion",
+    description:
+      "Service extends to Mumbai, Pune, Goa, and Delhi–Jaipur. Fleet crosses 50 coaches. The electric airport-shuttle pilot begins in Bengaluru.",
+  },
+  {
+    year: "Q2 2027",
+    title: "100-city milestone",
+    description:
+      "The network reaches 100 cities and 2,400 daily departures. The sleeper product rolls out network-wide with complimentary linen service.",
+  },
+  {
+    year: "2028",
+    title: "Full national coverage",
+    description:
+      "Techmarkage Express operates coast to coast — from Kolkata to Ahmedabad, Delhi to Chennai. The fleet crosses 200 coaches with a 97% on-time record.",
   },
 ];
 
@@ -476,7 +472,7 @@ export const faqs = [
   },
   {
     q: "Does every coach have live tracking?",
-    a: "Yes. Every coach in the Voyaline fleet has been fitted with GPS telematics since 2014. Once your booking is confirmed, you'll see a 'Track my bus' link in the app and in your confirmation email.",
+    a: "Yes. Every coach in the Techmarkage fleet is fitted with GPS telematics. Once your booking is confirmed, you'll see a 'Track my bus' link in the app and in your confirmation email.",
   },
   {
     q: "Are blankets and pillows provided on sleeper routes?",
@@ -498,5 +494,5 @@ export const contactSubjects = [
   "Feedback on a trip",
   "Partnership & fleet enquiries",
   "Press & media",
-  "Careers at Voyaline",
+  "Careers at Techmarkage",
 ];

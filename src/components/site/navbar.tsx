@@ -3,14 +3,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { Menu, X, Bus } from "lucide-react";
+import { Menu, X, Bus, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { showDemoNotice } from "@/lib/demo";
 
 const navLinks = [
   { href: "/#routes", label: "Routes" },
   { href: "/#fleet", label: "Fleet" },
-  { href: "/#why-us", label: "Why Voyaline" },
+  { href: "/#why-us", label: "Why Techmarkage" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -18,6 +20,8 @@ const navLinks = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
   const { scrollY } = useScroll();
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -25,6 +29,7 @@ export function Navbar() {
   });
 
   useEffect(() => {
+    setMounted(true);
     if (open) {
       document.body.style.overflow = "hidden";
     } else {
@@ -44,7 +49,7 @@ export function Navbar() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
           scrolled
-            ? "bg-background/85 backdrop-blur-xl border-b border-border shadow-[0_8px_30px_-12px_rgba(11,27,59,0.18)]"
+            ? "bg-background/85 backdrop-blur-xl border-b border-border shadow-[0_8px_30px_-12px_rgba(4,47,56,0.18)]"
             : "bg-transparent"
         )}
       >
@@ -52,18 +57,25 @@ export function Navbar() {
           <Link
             href="/"
             className="flex items-center gap-2.5 group"
-            aria-label="Voyaline Express home"
+            aria-label="Techmarkage Express home"
           >
-            <span className="grid place-items-center h-9 w-9 rounded-lg bg-primary text-primary-foreground shadow-sm transition-transform group-hover:scale-105">
+            <motion.span
+              whileHover={{ rotate: -8, scale: 1.08 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              className="grid place-items-center h-9 w-9 rounded-lg bg-primary text-primary-foreground shadow-sm"
+            >
               <Bus className="h-5 w-5" strokeWidth={2.4} />
-            </span>
+            </motion.span>
             <span className="flex flex-col leading-none">
               <span className="font-display text-lg font-extrabold tracking-tight text-primary">
-                Voyaline
+                Techmarkage
               </span>
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
                 Express
               </span>
+            </span>
+            <span className="ml-1 hidden rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent sm:inline-block">
+              Demo
             </span>
           </Link>
 
@@ -81,12 +93,23 @@ export function Navbar() {
           </div>
 
           <div className="hidden items-center gap-3 md:flex">
-            <Link
-              href="/#track"
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle dark mode"
+              className="grid h-10 w-10 place-items-center rounded-lg text-foreground/70 transition-colors hover:bg-secondary hover:text-accent"
+            >
+              {mounted && theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </button>
+            <button
+              onClick={() => showDemoNotice("Live tracking")}
               className="text-sm font-semibold text-foreground/80 hover:text-primary transition-colors"
             >
               Track a bus
-            </Link>
+            </button>
             <Button
               asChild
               size="sm"
@@ -96,13 +119,26 @@ export function Navbar() {
             </Button>
           </div>
 
-          <button
-            onClick={() => setOpen(true)}
-            className="grid h-10 w-10 place-items-center rounded-lg text-primary md:hidden"
-            aria-label="Open menu"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+          <div className="flex items-center gap-1 md:hidden">
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              aria-label="Toggle dark mode"
+              className="grid h-10 w-10 place-items-center rounded-lg text-foreground/70"
+            >
+              {mounted && theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )}
+            </button>
+            <button
+              onClick={() => setOpen(true)}
+              className="grid h-10 w-10 place-items-center rounded-lg text-primary"
+              aria-label="Open menu"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
         </nav>
       </motion.header>
 
@@ -131,7 +167,7 @@ export function Navbar() {
                     <Bus className="h-5 w-5" />
                   </span>
                   <span className="font-display text-lg font-extrabold text-primary">
-                    Voyaline
+                    Techmarkage
                   </span>
                 </span>
                 <button
@@ -168,18 +204,20 @@ export function Navbar() {
                       Book a ticket
                     </Link>
                   </Button>
-                  <Link
-                    href="/#track"
-                    onClick={() => setOpen(false)}
+                  <button
+                    onClick={() => {
+                      setOpen(false);
+                      showDemoNotice("Live tracking");
+                    }}
                     className="text-center text-sm font-medium text-foreground/70"
                   >
                     Track a bus
-                  </Link>
+                  </button>
                 </div>
               </div>
               <div className="absolute bottom-0 inset-x-0 border-t border-border bg-secondary/60 px-5 py-4 text-xs text-muted-foreground">
-                <p className="font-semibold text-foreground">Voyaline Travels Pvt. Ltd.</p>
-                <p className="mt-1">1800 425 8690 · care@voyaline.express</p>
+                <p className="font-semibold text-foreground">Techmarkage Express — Demo</p>
+                <p className="mt-1">Built by Amrit Raj · 1800 425 8690</p>
               </div>
             </motion.div>
           </motion.div>

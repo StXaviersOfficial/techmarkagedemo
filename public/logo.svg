@@ -1,12 +1,12 @@
 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="40" height="40" rx="10" fill="#0B1B3B"/>
-  <path d="M10 13C10 11.3431 11.3431 10 13 10H27C28.6569 10 30 11.3431 30 13V22C30 23.6569 28.6569 25 27 25H13C11.3431 25 10 23.6569 10 22V13Z" fill="#F59E0B"/>
-  <path d="M11 14.5C11 13.6716 11.6716 13 12.5 13H27.5C28.3284 13 29 13.6716 29 14.5V19H11V14.5Z" fill="#0B1B3B"/>
-  <circle cx="14" cy="27" r="3" fill="#F59E0B"/>
-  <circle cx="26" cy="27" r="3" fill="#F59E0B"/>
-  <circle cx="14" cy="27" r="1.4" fill="#0B1B3B"/>
-  <circle cx="26" cy="27" r="1.4" fill="#0B1B3B"/>
-  <rect x="13" y="14" width="5" height="3.5" rx="0.5" fill="#FCD34D"/>
-  <rect x="19.5" y="14" width="5" height="3.5" rx="0.5" fill="#FCD34D"/>
-  <rect x="26" y="14" width="2.5" height="3.5" rx="0.5" fill="#FCD34D"/>
+  <rect width="40" height="40" rx="10" fill="#042F38"/>
+  <path d="M10 13C10 11.3431 11.3431 10 13 10H27C28.6569 10 30 11.3431 30 13V22C30 23.6569 28.6569 25 27 25H13C11.3431 25 10 23.6569 10 22V13Z" fill="#06B6D4"/>
+  <path d="M11 14.5C11 13.6716 11.6716 13 12.5 13H27.5C28.3284 13 29 13.6716 29 14.5V19H11V14.5Z" fill="#042F38"/>
+  <circle cx="14" cy="27" r="3" fill="#06B6D4"/>
+  <circle cx="26" cy="27" r="3" fill="#06B6D4"/>
+  <circle cx="14" cy="27" r="1.4" fill="#042F38"/>
+  <circle cx="26" cy="27" r="1.4" fill="#042F38"/>
+  <rect x="13" y="14" width="5" height="3.5" rx="0.5" fill="#67E8F9"/>
+  <rect x="19.5" y="14" width="5" height="3.5" rx="0.5" fill="#67E8F9"/>
+  <rect x="26" y="14" width="2.5" height="3.5" rx="0.5" fill="#67E8F9"/>
 </svg>

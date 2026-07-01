@@ -7,6 +7,7 @@ import { popularRoutes } from "@/lib/data";
 import { Reveal, Stagger, staggerItem } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { showDemoNotice } from "@/lib/demo";
 
 export function PopularRoutes() {
   return (
@@ -23,23 +24,20 @@ export function PopularRoutes() {
               Popular routes
             </span>
             <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl lg:text-5xl">
-              Where India travels with us.
+              Where India will travel with us.
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg text-pretty">
-              Eight corridors that carry the bulk of our 1.24 million travellers. Fares
-              are live — final pricing depends on departure time, seat type, and date of
-              travel.
+              Eight corridors planned for the launch phase. Fares are indicative — final
+              pricing will depend on departure time, seat type, and date of travel.
             </p>
           </div>
           <Button
-            asChild
+            onClick={() => showDemoNotice("Full route network")}
             variant="outline"
             className="hidden shrink-0 sm:inline-flex"
           >
-            <Link href="/#book">
-              Browse all 86 cities
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+            Browse all 86 cities
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </Reveal>
 
@@ -139,14 +137,12 @@ export function PopularRoutes() {
                     </div>
                   </div>
                   <Button
-                    asChild
+                    onClick={() => showDemoNotice("Booking")}
                     size="sm"
                     className="bg-accent text-accent-foreground hover:bg-accent/90 group/btn"
                   >
-                    <Link href="/#book">
-                      Book now
-                      <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
-                    </Link>
+                    Book now
+                    <ArrowRight className="ml-1.5 h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-0.5" />
                   </Button>
                 </div>
               </div>
@@ -155,11 +151,9 @@ export function PopularRoutes() {
         </Stagger>
 
         <Reveal className="mt-10 flex justify-center sm:hidden">
-          <Button asChild variant="outline">
-            <Link href="/#book">
-              Browse all 86 cities
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+          <Button onClick={() => showDemoNotice("Full route network")} variant="outline">
+            Browse all 86 cities
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </Reveal>
       </div>

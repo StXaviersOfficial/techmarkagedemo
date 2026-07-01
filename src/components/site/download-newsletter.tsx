@@ -17,6 +17,7 @@ import {
 import { Reveal } from "@/components/site/reveal";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { showDemoNotice } from "@/lib/demo";
 
 const appFeatures = [
   { icon: Ticket, label: "Mobile boarding pass" },
@@ -42,7 +43,7 @@ export function DownloadNewsletter() {
     <section className="relative overflow-hidden bg-primary py-24 text-primary-foreground sm:py-32">
       <div className="absolute inset-0 bg-grid-dark opacity-40" />
       <div className="absolute -left-32 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-accent/15 blur-3xl" />
-      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -50,7 +51,7 @@ export function DownloadNewsletter() {
           <Reveal>
             <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
               <Smartphone className="h-3 w-3" />
-              Voyaline app
+              Techmarkage app
             </span>
             <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl">
               The whole terminal,
@@ -98,7 +99,7 @@ export function DownloadNewsletter() {
                   </p>
                   <div className="mt-3 inline-flex items-center gap-1.5 text-xs text-accent">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                    4.8 ★ on App Store · 4.7 ★ on Play
+                    5.0 ★ on App Store · 5.0 ★ on Play
                   </div>
                 </div>
               </div>
@@ -188,8 +189,8 @@ export function DownloadNewsletter() {
 
 function AppButton({ store }: { store: "apple" | "google" }) {
   return (
-    <a
-      href="#"
+    <button
+      onClick={() => showDemoNotice(store === "apple" ? "App Store download" : "Google Play download")}
       className="group flex items-center gap-3 rounded-xl border border-primary-foreground/20 bg-primary-foreground/5 px-5 py-3 backdrop-blur-sm transition-all hover:border-accent hover:bg-primary-foreground/10"
     >
       {store === "apple" ? (
@@ -205,6 +206,6 @@ function AppButton({ store }: { store: "apple" | "google" }) {
           {store === "apple" ? "App Store" : "Google Play"}
         </div>
       </div>
-    </a>
+    </button>
   );
 }
