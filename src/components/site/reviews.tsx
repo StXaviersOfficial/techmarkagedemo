@@ -97,7 +97,7 @@ function ReviewCard({ review, isNew }: { review: Review; isNew?: boolean }) {
   );
 }
 
-function ReviewForm({ onSubmitted }: { onSubmitted: () => void }) {
+function ReviewForm({ onSubmitted }: { onSubmitted: (review: Review) => void }) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [route, setRoute] = useState("");
@@ -117,6 +117,8 @@ function ReviewForm({ onSubmitted }: { onSubmitted: () => void }) {
         body: JSON.stringify({ name, route: route || "General", rating, quote }),
       });
       if (!res.ok) throw new Error("Request failed");
+      const data = await res.json();
+      const created: Review | undefined = data?.review;
       setStatus("done");
       setName("");
       setRoute("");
@@ -128,7 +130,7 @@ function ReviewForm({ onSubmitted }: { onSubmitted: () => void }) {
       setTimeout(() => {
         setOpen(false);
         setStatus("idle");
-        onSubmitted();
+        if (created) onSubmitted(created);
       }, 1100);
     } catch {
       setStatus("idle");
@@ -340,12 +342,21 @@ export function Reviews() {
     load();
   }, [load, refreshKey]);
 
-  const handleSubmitted = () => {
-    setNewId(null);
-    setRefreshKey((k) => k + 1);
+  const handleSubmitted = (created: Review) => {
+    // Prepend the created review to local state immediately so the user
+    // always sees it appear, even if the serverless store is ephemeral.
+    setReviews((prev) => {
+      // Avoid duplicates if the GET also returns it.
+      if (prev.some((r) => r.id === created.id)) return prev;
+      return [created, ...prev];
+    });
+    setNewId(created.id);
+    const t = setTimeout(() => setNewId(null), 6000);
+    return () => clearTimeout(t);
   };
 
   // Track the newest review after a refresh so we can badge it "Just posted".
+  // (Only used as a fallback when the created review isn't passed directly.)
   useEffect(() => {
     if (reviews.length > 0 && refreshKey > 0) {
       setNewId(reviews[0].id);
