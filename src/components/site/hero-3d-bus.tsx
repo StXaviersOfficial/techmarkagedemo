@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, Suspense, useState, useEffect } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -45,15 +45,15 @@ function Coach() {
     }
   });
 
-  // Materials
+  // Materials — bright silver body so the bus POPS against the dark hero
   const bodyMat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: "#0B2A35",
-        metalness: 0.85,
-        roughness: 0.22,
-        emissive: "#042F38",
-        emissiveIntensity: 0.3,
+        color: "#E0F7FA",
+        metalness: 0.9,
+        roughness: 0.15,
+        emissive: "#06B6D4",
+        emissiveIntensity: 0.15,
       }),
     []
   );
@@ -591,12 +591,13 @@ function Scene({ isMobile }: { isMobile: boolean }) {
   return (
     <>
       <CameraRig isMobile={isMobile} />
-      <fog attach="fog" args={["#042F38", 14, 40]} />
-      {/* Lighting — kept lean for performance (each light adds shader cost) */}
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[6, 10, 6]} intensity={1.2} color="#ECFEFF" />
-      <pointLight position={[-10, 5, 3]} intensity={6} color="#06B6D4" distance={30} />
-      <pointLight position={[10, 4, -3]} intensity={5} color="#22D3EE" distance={28} />
+      <fog attach="fog" args={["#042F38", 18, 50]} />
+      {/* Lighting — strong so the silver bus is well-lit */}
+      <ambientLight intensity={0.7} />
+      <directionalLight position={[6, 10, 6]} intensity={1.8} color="#ECFEFF" />
+      <directionalLight position={[-6, 4, -4]} intensity={1.0} color="#06B6D4" />
+      <pointLight position={[-10, 5, 3]} intensity={8} color="#06B6D4" distance={30} />
+      <pointLight position={[10, 4, -3]} intensity={6} color="#22D3EE" distance={28} />
 
       <Coach />
       <Highway />
@@ -616,16 +617,19 @@ export function Hero3DBus() {
       <Canvas
         camera={{ position: [0, 1.8, 9], fov: 50 }}
         dpr={isMobile ? [0.5, 1.0] : [0.75, 1.5]}
+        frameloop="always"
         gl={{
           antialias: !isMobile,
           alpha: true,
           powerPreference: "high-performance",
+          preserveDrawingBuffer: true,
         }}
         style={{ background: "transparent" }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
       >
-        <Suspense fallback={null}>
-          <Scene isMobile={isMobile} />
-        </Suspense>
+        <Scene isMobile={isMobile} />
       </Canvas>
     </div>
   );
