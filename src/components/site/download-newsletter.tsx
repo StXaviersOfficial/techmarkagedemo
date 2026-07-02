@@ -73,7 +73,7 @@ export function DownloadNewsletter() {
               className="mt-7 flex flex-wrap gap-3"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               variants={{ visible: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } } }}
             >
               {[
@@ -91,7 +91,7 @@ export function DownloadNewsletter() {
               className="mt-8 space-y-3"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               variants={{ visible: { transition: { staggerChildren: 0.1, delayChildren: 0.4 } } }}
             >
               {appFeatures.map((f) => (
@@ -124,7 +124,7 @@ export function DownloadNewsletter() {
                   variants={scaleIn}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   className="grid h-32 w-32 shrink-0 place-items-center rounded-xl bg-background"
                 >
                   <div className="grid h-24 w-24 place-items-center rounded-lg bg-primary p-3 text-primary-foreground">
@@ -151,7 +151,7 @@ export function DownloadNewsletter() {
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="flex flex-1 flex-col justify-center rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 backdrop-blur-sm sm:p-8"
               >
                 <h3 className="font-display text-xl font-bold sm:text-2xl">

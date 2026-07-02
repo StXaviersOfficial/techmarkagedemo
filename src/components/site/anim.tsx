@@ -14,6 +14,8 @@ import { cn } from "@/lib/utils";
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
 // ---- Reveal variants (one per direction) ----
+// Each has a slightly different duration so elements animate at
+// varied speeds — making the stagger more visually interesting.
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
@@ -21,27 +23,27 @@ export const fadeUp: Variants = {
 
 export const fadeDown: Variants = {
   hidden: { opacity: 0, y: -28 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
 };
 
 export const fadeLeft: Variants = {
   hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: EASE } },
 };
 
 export const fadeRight: Variants = {
   hidden: { opacity: 0, x: -40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.65, ease: EASE } },
 };
 
 export const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.85 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.55, ease: EASE } },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: EASE } },
 };
 
 export const blurIn: Variants = {
   hidden: { opacity: 0, filter: "blur(12px)" },
-  visible: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.65, ease: EASE } },
+  visible: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.7, ease: EASE } },
 };
 
 export const rotateIn: Variants = {
@@ -63,6 +65,8 @@ export function staggerContainer(stagger = 0.08, delay = 0): Variants {
 }
 
 // ---- Generic Reveal that accepts any variant ----
+// NOTE: once=false so animations re-trigger every time the element
+// enters the viewport — both on scroll-down AND scroll-up.
 type RevealProps = {
   children: React.ReactNode;
   className?: string;
@@ -78,7 +82,7 @@ export function Reveal({
   className,
   variant = fadeUp,
   delay = 0,
-  once = true,
+  once = false,
   id,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -99,6 +103,7 @@ export function Reveal({
 }
 
 // ---- Stagger wrapper ----
+// NOTE: once=false so the stagger replays on every viewport entry.
 type StaggerProps = {
   children: React.ReactNode;
   className?: string;
@@ -112,7 +117,7 @@ export function Stagger({
   className,
   delay = 0,
   stagger = 0.08,
-  once = true,
+  once = false,
 }: StaggerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once, margin: "-60px" });

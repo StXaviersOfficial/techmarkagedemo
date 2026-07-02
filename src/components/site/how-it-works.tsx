@@ -66,7 +66,7 @@ export function HowItWorks() {
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 1.2, delay: 0.3, ease: EASE }}
             className="absolute left-0 right-0 top-14 hidden h-px origin-left bg-gradient-to-r from-transparent via-accent/40 to-transparent lg:block"
           />
@@ -83,7 +83,7 @@ export function HowItWorks() {
                     className="absolute inset-0 rounded-full bg-accent/5"
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }}
                     transition={{ duration: 0.6, ease: EASE }}
                   />
                   <motion.div

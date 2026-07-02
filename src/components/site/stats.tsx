@@ -81,7 +81,7 @@ export function Stats() {
           className="mt-14 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
+          viewport={{ once: false, margin: "-60px" }}
           variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
         >
           {stats.map((stat) => (

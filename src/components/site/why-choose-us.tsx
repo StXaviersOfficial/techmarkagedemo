@@ -76,7 +76,7 @@ export function WhyChooseUs() {
                   className="absolute inset-x-0 top-0 h-1 origin-left bg-gradient-to-r from-accent to-cyan-300"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: false }}
                   transition={{ duration: 0.6, delay: 0.3 + i * 0.05, ease: EASE }}
                 />
                 <div className="relative">

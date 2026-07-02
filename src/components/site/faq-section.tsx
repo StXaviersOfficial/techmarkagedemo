@@ -42,7 +42,7 @@ export function FaqSection() {
           className="mt-12 space-y-3"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-40px" }}
+          viewport={{ once: false, margin: "-40px" }}
           variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
         >
           {faqs.map((f, i) => {
