@@ -3,14 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { ArrowRight, Bus, Star, MapPin, Clock, ShieldCheck, ChevronDown, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Lazy-load the 3D scene so it doesn't block initial paint or SSR.
-const Hero3DBus = lazy(() =>
-  import("@/components/site/hero-3d-bus").then((m) => ({ default: m.Hero3DBus }))
-);
+// Direct import — the 3D component handles its own Suspense internally.
+import { Hero3DBus } from "@/components/site/hero-3d-bus";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -57,7 +55,7 @@ export function Hero() {
       {/* Animated grid overlay */}
       <div className="absolute inset-0 -z-10 bg-grid-dark opacity-50" />
 
-      {/* 3D animated bus scene — desktop only, lazy-loaded */}
+      {/* 3D animated bus scene — always renders (desktop + mobile) */}
       {show3d && (
         <Suspense fallback={null}>
           <Hero3DBus />
