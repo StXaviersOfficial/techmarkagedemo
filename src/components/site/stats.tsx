@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView, useMotionValue, animate } from "framer-motion";
+import { useInView, useMotionValue, animate, motion } from "framer-motion";
 import { stats } from "@/lib/data";
-import { Reveal } from "@/components/site/reveal";
+import { Reveal, scaleIn, fadeUp, blurIn, EASE } from "@/components/site/anim";
 
 function formatValue(value: number, compact?: boolean) {
   if (!compact) return value.toLocaleString("en-IN");
@@ -56,24 +56,39 @@ export function Stats() {
       <div className="absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-cyan-400/15 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
-            By the numbers
-          </span>
-          <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-            A concept built for scale.
-          </h2>
-          <p className="mt-4 text-base text-primary-foreground/70 sm:text-lg text-pretty">
-            This is a pre-launch demo. The metrics below will populate once the fleet
-            goes live — for now, they showcase the dashboard layout.
-          </p>
-        </Reveal>
+        {/* Heading — 3 staggered elements */}
+        <div className="mx-auto max-w-2xl text-center">
+          <Reveal variant={scaleIn}>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+              By the numbers
+            </span>
+          </Reveal>
+          <Reveal variant={blurIn} delay={0.1}>
+            <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
+              A concept built for scale.
+            </h2>
+          </Reveal>
+          <Reveal variant={fadeUp} delay={0.2}>
+            <p className="mt-4 text-base text-primary-foreground/70 sm:text-lg text-pretty">
+              This is a pre-launch demo. The metrics below will populate once the fleet
+              goes live — for now, they showcase the dashboard layout.
+            </p>
+          </Reveal>
+        </div>
 
-        <div className="mt-14 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8">
-          {stats.map((stat, i) => (
-            <Reveal
+        {/* 4 stat cards with stagger */}
+        <motion.div
+          className="mt-14 grid grid-cols-2 gap-6 lg:grid-cols-4 lg:gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+        >
+          {stats.map((stat) => (
+            <motion.div
               key={stat.label}
-              delay={i * 0.1}
+              variants={scaleIn}
+              whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
               className="relative rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 backdrop-blur-sm sm:p-8"
             >
               <div className="font-display text-4xl font-extrabold tracking-tight text-accent sm:text-5xl lg:text-6xl">
@@ -86,11 +101,12 @@ export function Stats() {
               <div className="mt-3 text-sm font-medium text-primary-foreground/80 sm:text-base">
                 {stat.label}
               </div>
-            </Reveal>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <Reveal className="mt-8 text-center" delay={0.3}>
+        {/* Demo badge */}
+        <Reveal variant={fadeUp} className="mt-8 text-center" delay={0.3}>
           <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent" />
             Demo mode — real metrics appear after launch

@@ -14,7 +14,7 @@ import {
   Ticket,
   Loader2,
 } from "lucide-react";
-import { Reveal } from "@/components/site/reveal";
+import { Reveal, fadeUp, fadeLeft, fadeRight, scaleIn, blurIn, EASE } from "@/components/site/anim";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { showDemoNotice } from "@/lib/demo";
@@ -47,48 +47,90 @@ export function DownloadNewsletter() {
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* App download */}
-          <Reveal>
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
-              <Smartphone className="h-3 w-3" />
-              TechMarkage app
-            </span>
-            <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl">
-              The whole terminal,
-              <br /> in your pocket.
-            </h2>
-            <p className="mt-4 max-w-md text-base leading-relaxed text-primary-foreground/80 sm:text-lg text-pretty">
-              Book in under 30 seconds, board with a QR, track your coach live, and get a
-              push notification 25 minutes before every stop. Free on iOS and Android.
-            </p>
+          {/* App download side */}
+          <div>
+            <Reveal variant={scaleIn}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-accent">
+                <Smartphone className="h-3 w-3" />
+                TechMarkage app
+              </span>
+            </Reveal>
+            <Reveal variant={blurIn} delay={0.1}>
+              <h2 className="mt-5 font-display text-3xl font-extrabold tracking-tight text-balance sm:text-4xl">
+                The whole terminal,
+                <br /> in your pocket.
+              </h2>
+            </Reveal>
+            <Reveal variant={fadeUp} delay={0.2}>
+              <p className="mt-4 max-w-md text-base leading-relaxed text-primary-foreground/80 sm:text-lg text-pretty">
+                Book in under 30 seconds, board with a QR, track your coach live, and get a
+                push notification 25 minutes before every stop. Free on iOS and Android.
+              </p>
+            </Reveal>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <AppButton store="apple" />
-              <AppButton store="google" />
-            </div>
-
-            <ul className="mt-8 space-y-3">
-              {appFeatures.map((f) => (
-                <li key={f.label} className="flex items-center gap-3 text-sm">
-                  <span className="grid h-7 w-7 place-items-center rounded-full bg-accent/15 text-accent">
-                    <f.icon className="h-3.5 w-3.5" />
-                  </span>
-                  <span className="text-primary-foreground/85">{f.label}</span>
-                </li>
+            {/* Store buttons — staggered */}
+            <motion.div
+              className="mt-7 flex flex-wrap gap-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{ visible: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } } }}
+            >
+              {[
+                { store: "apple" as const },
+                { store: "google" as const },
+              ].map((s) => (
+                <motion.div key={s.store} variants={fadeLeft} whileHover={{ y: -4, scale: 1.03 }}>
+                  <AppButton store={s.store} />
+                </motion.div>
               ))}
-            </ul>
-          </Reveal>
+            </motion.div>
 
-          {/* QR + newsletter */}
-          <Reveal delay={0.15}>
+            {/* Feature list — staggered */}
+            <motion.ul
+              className="mt-8 space-y-3"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{ visible: { transition: { staggerChildren: 0.1, delayChildren: 0.4 } } }}
+            >
+              {appFeatures.map((f) => (
+                <motion.li
+                  key={f.label}
+                  variants={fadeRight}
+                  className="flex items-center gap-3 text-sm"
+                >
+                  <motion.span
+                    variants={scaleIn}
+                    className="grid h-7 w-7 place-items-center rounded-full bg-accent/15 text-accent"
+                  >
+                    <f.icon className="h-3.5 w-3.5" />
+                  </motion.span>
+                  <span className="text-primary-foreground/85">{f.label}</span>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </div>
+
+          {/* QR + newsletter side */}
+          <Reveal variant={fadeLeft} delay={0.15}>
             <div className="grid h-full gap-6">
               {/* QR card */}
-              <div className="flex flex-col items-start gap-6 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 backdrop-blur-sm sm:flex-row sm:items-center sm:p-8">
-                <div className="grid h-32 w-32 shrink-0 place-items-center rounded-xl bg-background">
+              <motion.div
+                whileHover={{ y: -4 }}
+                className="flex flex-col items-start gap-6 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 backdrop-blur-sm sm:flex-row sm:items-center sm:p-8"
+              >
+                <motion.div
+                  variants={scaleIn}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  className="grid h-32 w-32 shrink-0 place-items-center rounded-xl bg-background"
+                >
                   <div className="grid h-24 w-24 place-items-center rounded-lg bg-primary p-3 text-primary-foreground">
                     <QrCode className="h-full w-full" strokeWidth={1.5} />
                   </div>
-                </div>
+                </motion.div>
                 <div>
                   <h3 className="font-display text-lg font-bold">
                     Scan to install
@@ -102,10 +144,16 @@ export function DownloadNewsletter() {
                     5.0 ★ on App Store · 5.0 ★ on Play
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Newsletter */}
-              <div className="flex flex-1 flex-col justify-center rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 backdrop-blur-sm sm:p-8">
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="flex flex-1 flex-col justify-center rounded-2xl border border-primary-foreground/15 bg-primary-foreground/5 p-6 backdrop-blur-sm sm:p-8"
+              >
                 <h3 className="font-display text-xl font-bold sm:text-2xl">
                   Get route deals before anyone else.
                 </h3>
@@ -138,36 +186,18 @@ export function DownloadNewsletter() {
                   >
                     <AnimatePresence mode="wait">
                       {status === "idle" && (
-                        <motion.span
-                          key="idle"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="flex items-center"
-                        >
+                        <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
                           Subscribe to the newsletter
                         </motion.span>
                       )}
                       {status === "loading" && (
-                        <motion.span
-                          key="loading"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="flex items-center"
-                        >
+                        <motion.span key="loading" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center">
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           Subscribing…
                         </motion.span>
                       )}
                       {status === "done" && (
-                        <motion.span
-                          key="done"
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="flex items-center"
-                        >
+                        <motion.span key="done" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center">
                           <CheckCircle2 className="mr-2 h-4 w-4" />
                           You&apos;re in. Welcome aboard.
                         </motion.span>
@@ -178,7 +208,7 @@ export function DownloadNewsletter() {
                 <p className="mt-3 text-xs text-primary-foreground/60">
                   We respect your inbox. One email a week, never more.
                 </p>
-              </div>
+              </motion.div>
             </div>
           </Reveal>
         </div>
