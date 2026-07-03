@@ -59,7 +59,7 @@ export function FaqSection() {
               >
                 <button
                   onClick={() => setOpen(isOpen ? null : i)}
-                  className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                  className="flex w-full items-center justify-between gap-4 p-5 min-h-[56px] text-left"
                   aria-expanded={isOpen}
                 >
                   <span className="font-display text-sm font-bold sm:text-base">

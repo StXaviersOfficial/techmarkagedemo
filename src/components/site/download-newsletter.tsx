@@ -27,11 +27,25 @@ const appFeatures = [
 
 export function DownloadNewsletter() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [error, setError] = useState("");
+
+  const validateEmail = (value: string) => {
+    if (!value) return "Email is required";
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(value)) return "Please enter a valid email address";
+    return "";
+  };
 
   const subscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    const validationError = validateEmail(email);
+    if (validationError) {
+      setError(validationError);
+      setStatus("error");
+      return;
+    }
+    setError("");
     setStatus("loading");
     setTimeout(() => {
       setStatus("done");
@@ -162,18 +176,33 @@ export function DownloadNewsletter() {
                   Wednesday. Unsubscribe in one click.
                 </p>
 
-                <form onSubmit={subscribe} className="mt-5 space-y-3">
+                <form onSubmit={subscribe} className="mt-5 space-y-3" noValidate>
                   <div className="relative">
                     <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <input
                       type="email"
                       required
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (error) { setError(""); setStatus("idle"); }
+                      }}
                       placeholder="you@example.com"
-                      className="h-12 w-full rounded-lg border border-primary-foreground/20 bg-background pl-10 pr-3 text-sm text-foreground outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/30"
+                      aria-label="Email address for newsletter subscription"
+                      aria-invalid={!!error}
+                      aria-describedby={error ? "newsletter-error" : undefined}
+                      className={`h-12 w-full rounded-lg border bg-background pl-10 pr-3 text-sm text-foreground outline-none transition-colors focus:ring-2 focus:ring-accent/30 ${
+                        error
+                          ? "border-red-500 focus:border-red-500"
+                          : "border-primary-foreground/20 focus:border-accent"
+                      }`}
                     />
                   </div>
+                  {error && (
+                    <p id="newsletter-error" className="text-xs font-medium text-red-400" role="alert">
+                      {error}
+                    </p>
+                  )}
                   <Button
                     type="submit"
                     disabled={status !== "idle"}

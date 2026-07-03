@@ -128,7 +128,7 @@ export function Hero() {
               size="lg"
               className="group bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/20 h-14 px-8 text-base"
             >
-              <Link href="/#book">
+              <Link href="/#book" aria-label="Book a bus ticket">
                 Book a ticket
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
@@ -139,7 +139,7 @@ export function Hero() {
               variant="outline"
               className="border-primary-foreground/30 bg-primary-foreground/5 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground backdrop-blur-sm h-14 px-8 text-base"
             >
-              <Link href="/#routes">
+              <Link href="/#routes" aria-label="View popular bus routes">
                 <MapPin className="mr-2 h-4 w-4" />
                 View routes
               </Link>

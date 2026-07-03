@@ -1,3 +1,6 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/site/hero";
 import { WhyChooseUs } from "@/components/site/why-choose-us";
 import { PopularRoutes } from "@/components/site/popular-routes";
@@ -10,10 +13,17 @@ import { FaqSection } from "@/components/site/faq-section";
 import { DownloadNewsletter } from "@/components/site/download-newsletter";
 import { SiteShell } from "@/components/site/site-shell";
 
+// Lazy-load the scroll scene so it never blocks initial page paint.
+const BusScrollScene = dynamic(
+  () => import("@/components/site/bus-scroll-scene").then((m) => ({ default: m.BusScrollScene })),
+  { ssr: false }
+);
+
 export default function Home() {
   return (
     <SiteShell>
       <Hero />
+      <BusScrollScene />
       <WhyChooseUs />
       <PopularRoutes />
       <HowItWorks />
